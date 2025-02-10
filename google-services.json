@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "807500081656",
+    "project_id": "jardin-12b41",
+    "storage_bucket": "jardin-12b41.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807500081656:android:bed4a5e024d6075dca4e0d",
+        "android_client_info": {
+          "package_name": "com.caartos.JardinMaternal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAejNYQEk96kAiz77ycy93rm7FRRcfCUYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

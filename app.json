@@ -10,19 +10,36 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
     },
+    
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.caartos.JardinMaternal"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
-    },
+      },
+      "package": "com.caartos.JardinMaternal",
+      "googleServicesFile": "./google-services.json"
+        },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4354c0ca-a1ff-456e-b0aa-8c1b8f3f3dc7"
+      }
     }
   }
 }
