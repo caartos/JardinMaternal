@@ -37,3 +37,6 @@ yarn-error.*
 
 # Environment variables
 .env
+
+# Firebase config files
+google-services.json
