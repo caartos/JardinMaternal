@@ -1,22 +1,23 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import CustomInput from '../Input/CustomInput'
 
-const Form = ({setData, fieldConfig, userData}) => {
+const Form = ({setData, fieldConfig, userData , style= null}) => {
 
     const handleInputChange = (name, value) => {
+        console.log(name, value)
         setData((completeUser) => ({
             ...completeUser,
             [name]: value
         }))}
-
+  
   return (
-    <View>
+    <View style={style}>
     {fieldConfig.map((field) => (
         <CustomInput
         key={field.fieldName}
         label={field.label}
-        fieldName={field.fieldName}
+        placeholder={field.placeholder}
         value={userData[field.fieldName]}
         onChangeText={(value)=>handleInputChange(field.fieldName, value)}
         secureTextEntry={field.secureTextEntry}
@@ -27,4 +28,4 @@ const Form = ({setData, fieldConfig, userData}) => {
   )
 }
 
-export default Form
+export default Form;

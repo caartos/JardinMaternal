@@ -74,6 +74,7 @@ const updateProfile = async (user, userData) => {
       dni: userData.dni,
       mail: userData.mail,
       profileImage: imageUrl,
+      hijos: userData.hijos || [],
     });
 
     // Cambiar contraseña si se proporciona una nueva

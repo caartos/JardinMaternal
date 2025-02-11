@@ -12,7 +12,7 @@ import useSignUp from "../hooks/useSignUp";
 
 const Register = () => {
   const {handleSignUp, loading} = useSignUp()
-
+  
   const [newUser, setNewUser] = useState({
     //codigo: "",
     nombre: "",
@@ -23,7 +23,7 @@ const Register = () => {
     mail: "",
     contraseña: "",
   });
-
+  console.log(newUser)
   const handleInputChange = (name, value) => {
     setNewUser({
       ...newUser,
@@ -54,7 +54,7 @@ const Register = () => {
           </View>
           <View>
             <Text style={titlesStyles.titleStyle}>Datos del padre/madre</Text>
-              <Form setData={setNewUser} fieldConfig={userFields}/>
+              <Form setData={setNewUser} fieldConfig={userFields} userData={newUser}/>
             <Button
               buttonRegularStyle={buttonStyles.regularButton}
               buttonParticularStyle={buttonStyles.saveButtonStyle}

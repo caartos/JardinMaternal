@@ -7,8 +7,9 @@ import mainStyles from "../styles/src/mainStyles";
 import ImageBackgroundStyles from "../styles/imageBackground";
 import titlesStyles from "../styles/commons/titlesStyles";
 import useNavigate from "../utils/navigation";
-import CustomInput from "../components/Input/CustomInput";
 import { useSignIn } from "../hooks/useSignIn";
+import Form from "../components/Form/Form";
+import logInFields from "../config/forms/logInFields";
 
 const Main = () => {
   const navigateToScreen = useNavigate();
@@ -19,19 +20,12 @@ const Main = () => {
     contraseña: "",
   });
 
-  const handleInputChange = (name, value) => {
-    setUserState({
-      ...user,
-      [name]: value,
-    });
-  };
-
   const handleForgotPass = () => {
     navigateToScreen("ForgotPassword");
   };
 
   const handleLogIn = async () => {
-    const mail = user.mail
+    const mail = user.mail;
     const contraseña = user.contraseña;
     handleSignIn(mail, contraseña);
   };
@@ -51,16 +45,11 @@ const Main = () => {
           <Text style={titlesStyles.titleStyle}>Iniciar Sesión</Text>
           <View style={mainStyles.mainElementsViewTagStyle}>
             <View style={inputStyles.inputViewTagStyle}>
-              <CustomInput
-                fieldName="Mail"
-                value={user.mail}
-                onChangeText={(text) => handleInputChange("mail", text)}
-              />
-              <CustomInput
-                fieldName="Contraseña"
-                value={user.contraseña}
-                onChangeText={(text) => handleInputChange("contraseña", text)}
-                secureTextEntry={true}
+              <Form
+                setData={setUserState}
+                fieldConfig={logInFields}
+                userData={user}
+                style={inputStyles.inputViewTagStyle}
               />
             </View>
             <Button

@@ -4,7 +4,7 @@ import inputStyles from "../../styles/input/inputStyles";
 
 const CustomInput = ({
     label,
-    fieldName,
+    placeholder,
     value,
     onChangeText,
     secureTextEntry = false,
@@ -26,7 +26,7 @@ const CustomInput = ({
     ) : (
       <TextInput
         style={inputStyles.input}
-        placeholder={fieldName}
+        placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
