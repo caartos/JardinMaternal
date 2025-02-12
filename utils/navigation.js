@@ -2,8 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const useNavigate = () => {
     const navigation = useNavigation();
-        return (screen) => {
-            navigation.navigate(screen);
+        return (screen, params = {}) => {
+            navigation.navigate(screen, params);
           };
   };
 

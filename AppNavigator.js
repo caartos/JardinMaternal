@@ -7,6 +7,7 @@ import ForgotPassword from './src/ForgotPassword'
 import LoggedMenu from './src/LoggedMenu'
 import Profile from './src/Profile'
 import CreateChildProfile from './src/CreateChildProfile'
+import ChildMenu from './src/ChildMenu'
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const AppNavigator = () => {
             <Stack.Screen name="LoggedMenu" component={LoggedMenu} options={{headerShown: false}}/>
             <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
             <Stack.Screen name="CreateChildProfile" component={CreateChildProfile} options={{headerShown: false}}/>
+            <Stack.Screen name="ChildMenu" component={ChildMenu} options={{headerShown: false}}/>
         </Stack.Navigator>
     </NavigationContainer>
   )

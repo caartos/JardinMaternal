@@ -24,7 +24,7 @@ const Profile = () => {
     dni: loggedUser.dni,
     mail: loggedUser.mail,
     profileImage: loggedUser.profileImage ? loggedUser.profileImage : null,
-    contraseña: "",
+    hijos: loggedUser.hijos || [],
   });
 
   const setProfileImage = (imageUri) => {

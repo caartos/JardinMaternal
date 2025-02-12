@@ -51,6 +51,8 @@ const signIn = async (email, password) => {
 // Función para actualizar el perfil de un usuario
 const updateProfile = async (user, userData) => {
   let imageUrl = userData.profileImage;
+  console.log("USER ------->",user)
+  console.log("USERDATA ------->",userData)
   try {
 
     // Subir imagen si es nueva
