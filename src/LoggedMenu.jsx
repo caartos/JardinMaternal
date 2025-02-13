@@ -29,11 +29,10 @@ const LoggedMenu = () => {
           >
             {user.hijos && user.hijos.length > 0 ? (
               user.hijos.map((hijo) => (
-                <View style={{ alignItems: "center", marginBottom: 30 }}>
+                <View key={hijo.dni} style={{ alignItems: "center", marginBottom: 30 }}>
                   <ChildMenuButton
-                    key={hijo.dni}
-                    child={hijo}
-                    //onPress={() => navigation.navigate("ChildProfile", { hijoId: hijo.id })}
+                    childName={hijo.nombre}
+                    childImage={hijo.childImage}
                   />
                   <Text>{hijo.nombre}</Text>
                 </View>

@@ -35,7 +35,7 @@ const CreateChildProfile = () => {
   const handleDateChange = (date) => {
     setChild({ ...child, fechaDeNacimiento: date });
   };
-
+  console.log(child)
   const handleSave = async () => {
     createChild(child);
   };

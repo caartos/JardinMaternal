@@ -1,19 +1,17 @@
-import React from 'react'
-import { SafeAreaView, ScrollView } from 'react-native'
-import LoggedInHeader from '../components/Headers/LoggedInHeader'
-import ChildHeader from '../components/Headers/ChildHeader'
+import React from "react";
+import { SafeAreaView, ScrollView } from "react-native";
+import ChildHeader from "../components/Headers/ChildHeader";
 
-const ChildMenu = (child) => {
-child = {...child.route.params.child}
-console.log("CHILD MENU",child)
-
-    
+const ChildMenu = ({ route }) => {
+  const { childName } = route.params;
+  console.log(childName);
   return (
     <SafeAreaView>
-        <ScrollView>
-            <ChildHeader child={child} />
-        </ScrollView>
-    </SafeAreaView>  )
-}
+      <ScrollView>
+        <ChildHeader childName={childName} />
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-export default ChildMenu
+export default ChildMenu;

@@ -3,11 +3,11 @@ import { Text, View } from "react-native";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import ChildProfileButton from "../Buttons/ChildProfileButton";
 
-const ChildHeader = ({child}) => {
+const ChildHeader = ({childName}) => {
   return (
     <View style={titlesStyles.topTitleMainViewTag}>
-      <Text style={titlesStyles.topTitleLoggedInTextStyle}>{child.nombre}</Text>
-      <ChildProfileButton destiny="Profile" child={child} />
+      <Text style={titlesStyles.topTitleLoggedInTextStyle}>{childName}</Text>
+      <ChildProfileButton destiny="Profile" childName={childName} />
     </View>
   );
 };

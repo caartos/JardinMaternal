@@ -2,10 +2,10 @@ import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 import useNavigate from "../../utils/navigation";
 
-const ChildMenuButton = ({ child }) => {
+const ChildMenuButton = ({ childName, childImage }) => {
   const navigateToScreen = useNavigate()
   const handlePress = () => {
-    navigateToScreen("ChildMenu",  {child} )
+    navigateToScreen("ChildMenu",  {childName} )
   }
 
   return (
@@ -15,8 +15,8 @@ const ChildMenuButton = ({ child }) => {
   >
     <Image
         source={
-          child.childImage
-            ? { uri: child.childImage }
+          childImage
+            ? { uri: childImage }
             : require("../../assets/images/fondoCeleste.jpg")
         }
         style={{ width: 120, height: 120, borderRadius: 50 }}

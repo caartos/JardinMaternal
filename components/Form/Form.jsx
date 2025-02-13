@@ -5,7 +5,6 @@ import CustomInput from '../Input/CustomInput'
 const Form = ({setData, fieldConfig, userData , style= null}) => {
 
     const handleInputChange = (name, value) => {
-        console.log(name, value)
         setData((completeUser) => ({
             ...completeUser,
             [name]: value

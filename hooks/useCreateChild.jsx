@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import { updateUser } from "../actions/userActions";
 import { updateProfile } from "../config/auth";
 import useNavigate from "../utils/navigation";
+import { format } from "date-fns";
 
 const useCreateChild = (loggedUser) => {
   const dispatch = useDispatch();
@@ -26,9 +27,11 @@ const useCreateChild = (loggedUser) => {
       return;
     }
 
+    const formattedDate = format(child.fechaDeNacimiento, "yyyy-MM-dd");
+
     const updatedUser = {
       ...loggedUser,
-      hijos: [...(loggedUser.hijos || []), child],
+      hijos: [...(loggedUser.hijos || []), {...child, fechaDeNacimiento: formattedDate}],
     };
 
     try {
