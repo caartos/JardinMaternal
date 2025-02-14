@@ -15,8 +15,8 @@ const ChildProfileButton = ({ childName }) => {
     >
       <Image
         source={
-          child.childImage
-            ? { uri: child.childImage }
+          child.profileImage
+            ? { uri: child.profileImage }
             : require("../../assets/images/fondoCeleste.jpg")
         }
         style={{ width: 45, height: 45, borderRadius: 50 }}

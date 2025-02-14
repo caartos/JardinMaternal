@@ -32,7 +32,6 @@ const signIn = async (email, password) => {
 
     // Retrieve user data from Firestore
     const q = query(collection(db, "users"), where("mail", "==", userEmail));
-    //console.log(q)
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
@@ -51,8 +50,6 @@ const signIn = async (email, password) => {
 // Función para actualizar el perfil de un usuario
 const updateProfile = async (user, userData) => {
   let imageUrl = userData.profileImage;
-  console.log("USER ------->",user)
-  console.log("USERDATA ------->",userData)
   try {
 
     // Subir imagen si es nueva

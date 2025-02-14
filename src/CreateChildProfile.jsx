@@ -21,21 +21,21 @@ const CreateChildProfile = () => {
     apellido: "",
     nacionalidad: "",
     dni: "",
-    childImage: "",
+    profileImage: "",
     fechaDeNacimiento: new Date(),
   });
 
   const setChildImage = (imageUri) => {
     setChild((prevChild) => ({
       ...prevChild,
-      childImage: imageUri,
+      profileImage: imageUri,
     }));
   };
 
   const handleDateChange = (date) => {
     setChild({ ...child, fechaDeNacimiento: date });
   };
-  console.log(child)
+
   const handleSave = async () => {
     createChild(child);
   };
@@ -48,7 +48,7 @@ const CreateChildProfile = () => {
           <Text style={titlesStyles.titleStyle}>Datos del niño/niña</Text>
           <Form setData={setChild} fieldConfig={childFields} userData={child} />
           <ProfileImagePicker
-            profileImage={child.childImage}
+            profileImage={child.profileImage}
             setProfileImage={setChildImage}
           />
           <BirthdayPicker

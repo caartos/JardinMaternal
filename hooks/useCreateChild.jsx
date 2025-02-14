@@ -11,7 +11,7 @@ const useCreateChild = (loggedUser) => {
 
   const createChild = async (child) => {
     // Verificar que todos los campos estén completos
-    if (!child.nombre || !child.apellido || !child.nacionalidad || !child.dni || !child.childImage || !child.fechaDeNacimiento) {
+    if (!child.nombre || !child.apellido || !child.nacionalidad || !child.dni || !child.profileImage || !child.fechaDeNacimiento) {
       Alert.alert("Error", "Por favor, completa todos los campos.");
       return;
     }

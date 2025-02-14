@@ -9,36 +9,54 @@ import Form from "../components/Form/Form";
 import ProfileImagePicker from "../components/ProfileImagePicker/ProfileImagePicker";
 import childFields from "../config/forms/childFields";
 import BirthdayPicker from "../components/BirthdayPicker/BirthdayPicker";
-import { parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { useSelector } from "react-redux";
+import useUpdateUser from "../hooks/useUpdateUser";
 
 const ChildProfile = ({route}) => {
   const {childName} = route.params
-  const user = useSelector((state) => state.user.user);
-  const child = user.hijos.find((hijo) => hijo.nombre === childName);
+  const loggedUser = useSelector((state) => state.user.user);
+  const child = loggedUser.hijos.find((hijo) => hijo.nombre === childName);
+  const { handleUpdateUser, loading} = useUpdateUser(loggedUser)
 
   const [selectedChild, setSelectedChild] = useState({
     nombre: child.nombre,
     apellido: child.apellido,
     nacionalidad: child.nacionalidad,
     dni: child.dni,
-    profileImage: child.childImage ? child.childImage : null,
+    profileImage: child.profileImage ? child.profileImage : null,
     fechaDeNacimiento: parseISO(child.fechaDeNacimiento),
   });
  
   const setChildImage = (imageUri) => {
     setSelectedChild((prevSelectedChild) => ({
       ...prevSelectedChild,
-      childImage: imageUri,
+      profileImage: imageUri,
     }));
   };
 
   const handleDateChange = (date) => {
-    setSelectedChild({ ...child, fechaDeNacimiento: date });
+    setSelectedChild({ ...selectedChild, fechaDeNacimiento: date });
   };
 
   const handleSave = async () => {
-    console.log("Actualizado el pendejo")
+    const formattedDate = format(child.fechaDeNacimiento, "yyyy-MM-dd");
+
+    const updatedChild = {
+      ...selectedChild,
+      fechaDeNacimiento: formattedDate,
+    };
+
+    const updatedHijos = loggedUser.hijos.map((hijo) =>
+      hijo.dni === selectedChild.dni ? updatedChild : hijo
+    );
+
+    const updatedUser = {
+      ...loggedUser,
+      hijos: updatedHijos,
+    };
+    
+    handleUpdateUser(updatedUser)
   };
 
   return (
@@ -55,7 +73,7 @@ const ChildProfile = ({route}) => {
                 userData={selectedChild}
               />
               <ProfileImagePicker
-                profileImage={child.childImage}
+                profileImage={selectedChild.profileImage}
                 setProfileImage={setChildImage}
               />
               <BirthdayPicker date={selectedChild.fechaDeNacimiento} setDateChange={handleDateChange}/>
@@ -66,7 +84,7 @@ const ChildProfile = ({route}) => {
               title={"Guardar"}
               titleStyle={buttonStyles.saveTextButtonStyle}
               onPress={handleSave}
-              //disabled={loading}
+              disabled={loading}
             />
           </View>
         </View>

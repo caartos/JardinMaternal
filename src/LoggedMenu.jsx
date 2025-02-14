@@ -32,7 +32,7 @@ const LoggedMenu = () => {
                 <View key={hijo.dni} style={{ alignItems: "center", marginBottom: 30 }}>
                   <ChildMenuButton
                     childName={hijo.nombre}
-                    childImage={hijo.childImage}
+                    childImage={hijo.profileImage}
                   />
                   <Text>{hijo.nombre}</Text>
                 </View>
