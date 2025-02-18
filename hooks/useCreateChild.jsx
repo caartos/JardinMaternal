@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Alert } from "react-native";
 import { updateUser } from "../actions/userActions";
-import { updateProfile } from "../config/auth";
+import { updateChildProfile, updateProfile } from "../config/auth";
 import useNavigate from "../utils/navigation";
 import { format } from "date-fns";
 
@@ -29,14 +29,19 @@ const useCreateChild = (loggedUser) => {
 
     const formattedDate = format(child.fechaDeNacimiento, "yyyy-MM-dd");
 
-    const updatedUser = {
-      ...loggedUser,
-      hijos: [...(loggedUser.hijos || []), {...child, fechaDeNacimiento: formattedDate}],
+    // const updatedUser = {
+    //   ...loggedUser,
+    //   hijos: [...(loggedUser.hijos || []), {...child, fechaDeNacimiento: formattedDate}],
+    // };
+
+    const childData = {
+      ...child,
+      fechaDeNacimiento: formattedDate,
     };
 
     try {
       // Actualizar el usuario en Firebase
-      const updatedUserChild = await updateProfile(loggedUser, updatedUser);
+      const updatedUserChild = await updateChildProfile(loggedUser, childData);
       // Actualizar el estado en Redux
       dispatch(updateUser(updatedUserChild));
       Alert.alert("Éxito", "Hijo/a agregado/a exitosamente.");

@@ -10,7 +10,7 @@ const ProfileButton = ({ destiny }) => {
   return (
     <TouchableOpacity
     onPress={() => navigateToScreen(destiny)}
-    style={{ width: "15%", paddingLeft: 10 }}
+    style={{ width: "15%", paddingLeft:5}}
   >
     <Image
         source={

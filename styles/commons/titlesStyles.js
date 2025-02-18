@@ -32,6 +32,19 @@ const titlesStyles = StyleSheet.create({
     height: "50",
     marginLeft: "7.5%",
   },
+  childMenuHeaderStyle: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "50",
+    backgroundColor: "#e5e5e5",
+  },
+  childMenuHeaderTitle: {
+    color: "#ffaa97",
+    fontWeight: "bold",
+    fontSize: 17,
+    textAlign: "center",
+  },
 });
 
 export default titlesStyles;

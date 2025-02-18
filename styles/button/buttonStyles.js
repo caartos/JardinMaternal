@@ -40,6 +40,28 @@ const buttonStyles = StyleSheet.create({
   saveTextButtonStyle: {
     color: "#436dff",
   },
+  chatButtonsView:{
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-around",
+    width:"90%",
+    alignSelf:"center",
+    marginTop: 5,
+    borderRadius: 50,
+    paddingVertical: 20
+  },
+  chatButtonStyle :{
+    width: "45%",
+    height: 140,
+    borderRadius: 30,
+    backgroundColor:"#e8aca0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  chatButtonText:{
+    color: "#fff3f1",
+    fontWeight: "bold",
+  }
 });
 
 export default buttonStyles;

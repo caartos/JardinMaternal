@@ -11,7 +11,7 @@ const ChildProfileButton = ({ childName }) => {
   return (
     <TouchableOpacity
       onPress={() => navigateToScreen("ChildProfile", { childName })}
-      style={{ width: "15%", paddingLeft: 10 }}
+      style={{ width: "15%", paddingLeft:5 }}
     >
       <Image
         source={
