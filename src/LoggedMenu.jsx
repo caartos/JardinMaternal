@@ -10,7 +10,7 @@ import ChildMenuButton from "../components/Buttons/ChildMenuButton";
 
 const LoggedMenu = () => {
   const user = useSelector((state) => state.user.user);
-
+  
   const navigateToScreen = useNavigate();
 
   const handleCreateChildProfile = () => {

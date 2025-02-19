@@ -11,7 +11,7 @@ const BackButton = ({ destiny, childName }) => {
       onPress={()=>navigateToScreen(destiny, {childName})}
       style={{ width: "15%", paddingLeft: 15 }}
     >
-      <AntDesign name="arrowleft" size={22} color="#ffaa97" />
+      <AntDesign name="arrowleft" size={22} color="#e8aca0" />
     </TouchableOpacity>
   );
 };

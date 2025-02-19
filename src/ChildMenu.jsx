@@ -13,7 +13,7 @@ const ChildMenu = ({ route }) => {
     <SafeAreaView>
       <View style={registerStyles.registerMainViewTag}>
         <ChildHeader childName={childName} />
-        <ChatButtonsView />
+        <ChatButtonsView childName={childName}/>
         <ChildCommentsView />
         <CircularsView />
       </View>

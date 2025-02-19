@@ -44,7 +44,7 @@ const CreateChildProfile = () => {
     <SafeAreaView>
       <ScrollView>
         <LoggedOutHeader title={"Perfil del niño/a"} destiny={"LoggedMenu"} />
-        <View style={[registerStyles.registerMainViewTag, { paddingTop: 30 }]}>
+        <View style={[registerStyles.registerMainViewTag]}>
           <Text style={titlesStyles.titleStyle}>Datos del niño/niña</Text>
           <Form setData={setChild} fieldConfig={childFields} userData={child} />
           <ProfileImagePicker

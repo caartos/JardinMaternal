@@ -9,7 +9,7 @@ const titlesStyles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
   },
   topTitleTextStyle: {
-    color: "#ffaa97",
+    color: "#e8aca0",
     fontWeight: "bold",
     fontSize: 17,
     textAlign: "center",
@@ -27,10 +27,11 @@ const titlesStyles = StyleSheet.create({
   titleStyle: {
     fontWeight: "bold",
     fontSize: 18,
-    color: "#ffaa97",
+    color: "#e8aca0",
     width: "85%",
     height: "50",
     marginLeft: "7.5%",
+    marginTop:30
   },
   childMenuHeaderStyle: {
     flexDirection: "row",
@@ -40,10 +41,18 @@ const titlesStyles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
   },
   childMenuHeaderTitle: {
-    color: "#ffaa97",
+    color: "#e8aca0",
     fontWeight: "bold",
     fontSize: 17,
     textAlign: "center",
+  },
+  chatHeaderTitle: {
+    color: "#e8aca0",
+    fontWeight: "bold",
+    fontSize: 17,
+    textAlign: "center",
+    width:"85%",
+    paddingRight:"15%"
   },
 });
 

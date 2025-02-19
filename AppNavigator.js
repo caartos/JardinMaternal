@@ -9,6 +9,7 @@ import Profile from './src/Profile'
 import CreateChildProfile from './src/CreateChildProfile'
 import ChildMenu from './src/ChildMenu'
 import ChildProfile from './src/ChildProfile'
+import ChatScreen from './src/ChatScreen'
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ const AppNavigator = () => {
             <Stack.Screen name="CreateChildProfile" component={CreateChildProfile} options={{headerShown: false}}/>
             <Stack.Screen name="ChildMenu" component={ChildMenu} options={{headerShown: false}}/>
             <Stack.Screen name="ChildProfile" component={ChildProfile} options={{headerShown: false}}/>
+            <Stack.Screen name="ChatScreen" component={ChatScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
     </NavigationContainer>
   )

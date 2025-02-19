@@ -23,7 +23,7 @@ const Register = () => {
     mail: "",
     contraseña: "",
   });
-
+  console.log(newUser)
   const handleInputChange = (name, value) => {
     setNewUser({
       ...newUser,

@@ -21,19 +21,21 @@ const useSignUp = () => {
     const missingFields = requiredFields.filter((field) => !newUser[field]);
     if (missingFields.length > 0) {
       Alert.alert("Por favor, complete todos los campos obligatorios.");
-      return;
+      return
     }
 
     const emailVerification = () => {
-      if (!emailRegex.test(newUser.email)) {
+      if (!emailRegex.test(newUser.mail)) {
         Alert.alert("Dirección de correo electrónico inválida");
-    }
-    return;
+        return false
+      }
+      return true;
     };
 
-    if(!emailVerification()){
-        return
+    if (!emailVerification()) {
+      return;
     }
+
 
     setLoading(true);
     try {
