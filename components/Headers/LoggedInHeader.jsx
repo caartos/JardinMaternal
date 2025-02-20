@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import ProfileButton from "../Buttons/ProfileButton";
 import titlesStyles from "../../styles/commons/titlesStyles";
-import BackButton from "../Buttons/BackButton";
+
 
 const LoggedInHeader = ({title}) => {
   return (
