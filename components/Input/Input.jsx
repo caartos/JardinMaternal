@@ -7,6 +7,7 @@ const Input = ({
   value,
   onChangeText,
   secureTextEntry,
+  multiline= false
 }) => {
   return (
     <TextInput
@@ -15,6 +16,7 @@ const Input = ({
       value={value}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
     />
   );
 };

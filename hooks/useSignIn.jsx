@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../config/auth";
 import { setUser } from "../actions/userActions";
 import useNavigate from "../utils/navigation";
+import { fetchUserChildren } from "../config/db/child/child";
+import { setChildren } from "../actions/childActions";
 
- export const useSignIn = () => {
+export const useSignIn = () => {
   const navigateToScreen = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -18,12 +20,28 @@ import useNavigate from "../utils/navigation";
 
     setLoading(true);
     try {
-      const { userCredential, userData } = await signIn(mail.toLowerCase(), contraseña);
+      const { userCredential, userData } = await signIn(
+        mail.toLowerCase(),
+        contraseña
+      );
+
       dispatch(setUser(userData));
-      navigateToScreen("LoggedMenu");
+      if (userData.admin) {
+        navigateToScreen("AdminMenu");
+      } else {
+        const childrenList = await fetchUserChildren(userCredential.user.uid);
+        dispatch(setChildren(childrenList));
+        navigateToScreen("LoggedMenu");
+      }
     } catch (error) {
-      if (error.code === 'auth/invalid-email' || error.code === 'auth/invalid-credential') {
-        Alert.alert("Error", "El correo electrónico o la contraseña son incorrectos.");
+      if (
+        error.code === "auth/invalid-email" ||
+        error.code === "auth/invalid-credential"
+      ) {
+        Alert.alert(
+          "Error",
+          "El correo electrónico o la contraseña son incorrectos."
+        );
       } else {
         Alert.alert("Error", error.message);
       }

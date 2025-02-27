@@ -24,7 +24,7 @@ const ForgotPassword = () => {
   return (
     <SafeAreaView>
       <View style={registerStyles.registerMainViewTag}>
-        <LoggedOutHeader title={"Recuperar contraseña"} destiny={"Main"} />
+        <LoggedOutHeader title={"Recuperar contraseña"} backButtonDestiny={"Main"} />
         <View style={forgotPasswordStyles.forgotPasswordMainViewTag}>
           <Text style={forgotPasswordStyles.forgotPasswordTextTag}>
             Escribe el mail con el que te registraste

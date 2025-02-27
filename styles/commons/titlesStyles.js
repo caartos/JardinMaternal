@@ -54,6 +54,26 @@ const titlesStyles = StyleSheet.create({
     width:"85%",
     paddingRight:"15%"
   },
+  createCircularTitle:{
+    color: "#e8aca0",
+    fontWeight: "bold",
+    fontSize: 17,
+    textAlign: "center",
+    padding: 25
+  },
+  circularTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  circularContent: {
+    fontSize: 16,
+    marginTop: 10,
+  },
+  circularDate: {
+    fontSize: 14,
+    color: "#888",
+
+  },
 });
 
 export default titlesStyles;

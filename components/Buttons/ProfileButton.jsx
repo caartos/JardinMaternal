@@ -3,16 +3,21 @@ import { Image, TouchableOpacity } from "react-native";
 import useNavigate from "../../utils/navigation";
 import { useSelector } from "react-redux";
 
-const ProfileButton = ({ destiny }) => {
-  const navigateToScreen = useNavigate()
+const ProfileButton = ({ title, backButtonDestiny }) => {
+  const navigateToScreen = useNavigate();
   const loggedUser = useSelector((state) => state.user.user);
-  
+
   return (
     <TouchableOpacity
-    onPress={() => navigateToScreen(destiny)}
-    style={{ width: "15%", paddingLeft:5}}
-  >
-    <Image
+      onPress={() =>
+        navigateToScreen("Profile", {
+          title: title,
+          backButtonDestiny: backButtonDestiny,
+        })
+      }
+      style={{ width: "15%", paddingLeft: 5 }}
+    >
+      <Image
         source={
           loggedUser.profileImage
             ? { uri: loggedUser.profileImage }
@@ -20,9 +25,8 @@ const ProfileButton = ({ destiny }) => {
         }
         style={{ width: 45, height: 45, borderRadius: 50 }}
       />
-  </TouchableOpacity>
+    </TouchableOpacity>
   );
 };
-
 
 export default ProfileButton;

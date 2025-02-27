@@ -3,14 +3,13 @@ import { Text, View } from "react-native";
 import BackButton from "../Buttons/BackButton";
 import titlesStyles from "../../styles/commons/titlesStyles";
 
-const ChatHeader = ({chatWith, childName}) => {
-
+const AdminOptionsHeader = ({ title, backButtonDestiny }) => {
   return (
     <View style={titlesStyles.childMenuHeaderStyle}>
-      <BackButton backButtonDestiny={"ChildMenu"} childName={childName}/>
-      <Text style={titlesStyles.chatHeaderTitle}>{chatWith}</Text>
+      <BackButton title={title} backButtonDestiny={backButtonDestiny} />
+      <Text style={titlesStyles.chatHeaderTitle}>{title}</Text>
     </View>
   );
 };
 
-export default ChatHeader;
+export default AdminOptionsHeader;

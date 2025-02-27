@@ -11,9 +11,10 @@ import userFields from "../config/forms/userFields";
 import ProfileImagePicker from "../components/ProfileImagePicker/ProfileImagePicker";
 import useUpdateUser from "../hooks/useUpdateUser";
 
-const Profile = () => {
+const Profile = ({route}) => {
   const loggedUser = useSelector((state) => state.user.user);
   const { handleUpdateUser, loading } = useUpdateUser(loggedUser);
+  const {title, backButtonDestiny} = route.params
 
   const [user, setUser] = useState({
     uid: loggedUser.uid,
@@ -42,9 +43,9 @@ const Profile = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={registerStyles.registerMainViewTag}>
-          <LoggedOutHeader title={"Perfil del padre"} destiny={"LoggedMenu"} />
+        <LoggedOutHeader title={`Perfil de ${title}`} backButtonDestiny={backButtonDestiny} />
           <View>
-            <Text style={titlesStyles.titleStyle}>Datos del padre/madre</Text>
+            <Text style={titlesStyles.titleStyle}>Datos de {title}</Text>
             <View>
               <ProfileImagePicker
                 profileImage={user.profileImage}

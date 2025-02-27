@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import circulars from "../../config/seed/circulares";
+//import circulars from "../../config/seed/circulares";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import useFetchCirculars from "../../hooks/useFetchCirculars";
 
 const CircularsView = () => {
+  const { circulars } = useFetchCirculars();
   const [visibleCirculars, setVisibleCirculars] = useState(5);
 
   const sortedCirculars = circulars.sort((a, b) => {
-    const dateA = new Date(`${a.dia.split('/').reverse().join('-')}T${a.hora}`);
-    const dateB = new Date(`${b.dia.split('/').reverse().join('-')}T${b.hora}`);
-    return dateB - dateA;
+    return b.timestamp.seconds - a.timestamp.seconds;
   });
 
   const handleShowMore = () => {
@@ -34,7 +34,11 @@ const CircularsView = () => {
             <View style={{ marginBottom: 25 }}>
               <Text style={{ paddingVertical: 3 }}>Directora:</Text>
               <Text style={{ paddingVertical: 3 }}>
-                {item.dia} {item.hora}
+                {new Date(item.timestamp.seconds * 1000).toLocaleDateString()}{" "}
+                {new Date(item.timestamp.seconds * 1000).toLocaleTimeString()}
+              </Text>
+              <Text style={{ paddingVertical: 3, fontWeight: "bold" }}>
+                {item.titulo}
               </Text>
               <Text style={{ paddingVertical: 3 }}>{item.circular}</Text>
             </View>
@@ -57,15 +61,6 @@ const CircularsView = () => {
           }
         />
       </View>
-      {/* {circulars.map((circular) => (
-        <View style={{ marginBottom: 25 }}>
-          <Text style={{ paddingVertical: 3 }}>Directora:</Text>
-          <Text style={{ paddingVertical: 3 }}>
-            {circular.dia} {circular.hora}
-          </Text>
-          <Text style={{ paddingVertical: 3 }}>{circular.circular}</Text>
-        </View>
-      ))} */}
     </View>
   );
 };

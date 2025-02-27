@@ -9,12 +9,13 @@ import LoggedOutHeader from "../components/Headers/LoggedOutHeader";
 import registerStyles from "../styles/src/registerStyles";
 import BirthdayPicker from "../components/BirthdayPicker/BirthdayPicker";
 import { useSelector } from "react-redux";
-import useCreateChild from "../hooks/useCreateChild";
 import ProfileImagePicker from "../components/ProfileImagePicker/ProfileImagePicker";
+import useCreateChild from "../hooks/useCreateChild";
+
 
 const CreateChildProfile = () => {
   const loggedUser = useSelector((state) => state.user.user);
-  const { createChild } = useCreateChild(loggedUser);
+  const { createChild } = useCreateChild(loggedUser.uid);
 
   const [child, setChild] = useState({
     nombre: "",
@@ -43,7 +44,7 @@ const CreateChildProfile = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <LoggedOutHeader title={"Perfil del niño/a"} destiny={"LoggedMenu"} />
+        <LoggedOutHeader title={"Perfil del niño/a"} backButtonDestiny={"LoggedMenu"} />
         <View style={[registerStyles.registerMainViewTag]}>
           <Text style={titlesStyles.titleStyle}>Datos del niño/niña</Text>
           <Form setData={setChild} fieldConfig={childFields} userData={child} />

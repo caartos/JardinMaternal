@@ -18,8 +18,18 @@ const registerStyles = StyleSheet.create({
     textAlign: "center",
     marginRight: "7.5%",
   },
-  registerSaveButtonViewTag: {
- 
+  circularItem: {
+    alignSelf:"center",
+    width: "85%",
+    backgroundColor: "#d1e7dd",
+    padding: 15,
+    marginVertical: 10,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
 });
 

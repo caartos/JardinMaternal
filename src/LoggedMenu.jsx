@@ -9,31 +9,31 @@ import registerStyles from "../styles/src/registerStyles";
 import ChildMenuButton from "../components/Buttons/ChildMenuButton";
 
 const LoggedMenu = () => {
-  const user = useSelector((state) => state.user.user);
-  
+  const children = useSelector((state) => state.child.children);
   const navigateToScreen = useNavigate();
-
   const handleCreateChildProfile = () => {
     navigateToScreen("CreateChildProfile");
   };
 
   return (
-    <SafeAreaView >
+    <SafeAreaView>
       <ScrollView style={registerStyles.registerMainViewTag}>
         <View>
-          <LoggedInHeader title={"Hijos/as"} />
+          <LoggedInHeader title={"Hijos/as"} backButtonDestiny={"LoggedMenu"} />
           <View
             style={[
               registerStyles.verificationCodeMainViewTag,
               { marginTop: 40 },
             ]}
           >
-            {user.hijos && user.hijos.length > 0 ? (
-              user.hijos.map((hijo) => (
-                <View key={hijo.dni} style={{ alignItems: "center", marginBottom: 30 }}>
+            {children && children.length > 0 ? (
+              children.map((hijo) => (
+                <View
+                  key={hijo.dni}
+                  style={{ alignItems: "center", marginBottom: 30 }}
+                >
                   <ChildMenuButton
-                    childName={hijo.nombre}
-                    childImage={hijo.profileImage}
+                    childId={hijo.id}
                   />
                   <Text>{hijo.nombre}</Text>
                 </View>

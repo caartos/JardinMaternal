@@ -73,6 +73,42 @@ const buttonStyles = StyleSheet.create({
   sendChatTextButtonStyle: {
     color: "#e8aca0",
   },
+  adminMenuButtonStyle: {
+    width: "45%",
+    height: 140,
+    borderRadius: 30,
+    backgroundColor: "#d1e7dd",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  adminTextButtonStyle: {
+    color: "#6B7672",
+    fontWeight: "bold",
+  },
+  createCircularButtonStyle: {
+    width: "45%",
+    height: 70,
+    borderRadius: 30,
+    backgroundColor: "#e8aca0",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    marginTop: 10,
+  },
+  createCircularTextButtonStyle: {
+    color: "#fff3f1",
+    fontWeight: "bold",
+  },
+  allCircularsButtonStyle: {
+    width: "50%",
+    height: 90,
+    borderRadius: 30,
+    backgroundColor: "#d1e7dd",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    marginTop: 40,
+  },
 });
 
 export default buttonStyles;

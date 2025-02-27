@@ -104,7 +104,6 @@ const updateProfile = async (user, userData) => {
 };
 
 const updateChildProfile = async (user, childData) => {
-  console.log(childData);
   let imageUrl = childData.profileImage;
   try {
     // Subir imagen si es nueva
@@ -124,27 +123,34 @@ const updateChildProfile = async (user, childData) => {
     // Actualizar el perfil del niño en Firestore
     let updatedHijos;
     if (user.hijos && user.hijos.length > 0) {
-      const hijoExistente = user.hijos.find((hijo) => hijo.dni === childData.dni);
+      const hijoExistente = user.hijos.find(
+        (hijo) => hijo.dni === childData.dni
+      );
       if (hijoExistente) {
         updatedHijos = user.hijos.map((hijo) =>
-          hijo.dni === childData.dni ? { ...childData, profileImage: imageUrl } : hijo
+          hijo.dni === childData.dni
+            ? { ...childData, profileImage: imageUrl }
+            : hijo
         );
       } else {
-        updatedHijos = [...user.hijos, { ...childData, profileImage: imageUrl }];
+        updatedHijos = [
+          ...user.hijos,
+          { ...childData, profileImage: imageUrl },
+        ];
       }
     } else {
       updatedHijos = [{ ...childData, profileImage: imageUrl }];
     }
-    
+
     const updatedUser = {
       ...user,
       hijos: updatedHijos,
     };
-  
+
     const userDocRef = doc(db, "users", user.uid);
     await updateDoc(userDocRef, updatedUser);
 
-    return  updatedUser ; // Devuelve los datos actualizados
+    return updatedUser; // Devuelve los datos actualizados
   } catch (error) {
     console.error("Error al actualizar perfil sdel niño:", error);
     throw error;

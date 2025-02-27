@@ -11,13 +11,11 @@ import childFields from "../config/forms/childFields";
 import BirthdayPicker from "../components/BirthdayPicker/BirthdayPicker";
 import { format, parseISO } from "date-fns";
 import { useSelector } from "react-redux";
-import useUpdateUser from "../hooks/useUpdateUser";
+import useUpdateChild from "../hooks/useUpdateChild";
 
-const ChildProfile = ({route}) => {
-  const {childName} = route.params
-  const loggedUser = useSelector((state) => state.user.user);
-  const child = loggedUser.hijos.find((hijo) => hijo.nombre === childName);
-  const { handleUpdateUser, loading} = useUpdateUser(loggedUser)
+const ChildProfile = () => {
+  const child = useSelector((state) => state.child.selectedChild);
+  const { handleUpdateChild } = useUpdateChild();
 
   const [selectedChild, setSelectedChild] = useState({
     nombre: child.nombre,
@@ -26,8 +24,9 @@ const ChildProfile = ({route}) => {
     dni: child.dni,
     profileImage: child.profileImage ? child.profileImage : null,
     fechaDeNacimiento: parseISO(child.fechaDeNacimiento),
+    id: child.id,
   });
- 
+  
   const setChildImage = (imageUri) => {
     setSelectedChild((prevSelectedChild) => ({
       ...prevSelectedChild,
@@ -40,30 +39,23 @@ const ChildProfile = ({route}) => {
   };
 
   const handleSave = async () => {
-    const formattedDate = format(child.fechaDeNacimiento, "yyyy-MM-dd");
-
+    const formattedDate = format(selectedChild.fechaDeNacimiento, "yyyy-MM-dd");
     const updatedChild = {
       ...selectedChild,
       fechaDeNacimiento: formattedDate,
     };
-
-    const updatedHijos = loggedUser.hijos.map((hijo) =>
-      hijo.dni === selectedChild.dni ? updatedChild : hijo
-    );
-
-    const updatedUser = {
-      ...loggedUser,
-      hijos: updatedHijos,
-    };
-    
-    handleUpdateUser(updatedUser)
+    handleUpdateChild(selectedChild.id, updatedChild);
   };
 
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={registerStyles.registerMainViewTag}>
-          <LoggedOutHeader title={"Perfil del niño/a"} destiny={"ChildMenu"} childName={childName} />
+          <LoggedOutHeader
+            title={"Perfil del niño/a"}
+            backButtonDestiny={"ChildMenu"}
+            childName={selectedChild.nombre}
+          />
           <View>
             <Text style={titlesStyles.titleStyle}>Datos del niño/a</Text>
             <View>
@@ -76,7 +68,10 @@ const ChildProfile = ({route}) => {
                 profileImage={selectedChild.profileImage}
                 setProfileImage={setChildImage}
               />
-              <BirthdayPicker date={selectedChild.fechaDeNacimiento} setDateChange={handleDateChange}/>
+              <BirthdayPicker
+                date={selectedChild.fechaDeNacimiento}
+                setDateChange={handleDateChange}
+              />
             </View>
             <Button
               buttonRegularStyle={buttonStyles.regularButton}
@@ -84,7 +79,6 @@ const ChildProfile = ({route}) => {
               title={"Guardar"}
               titleStyle={buttonStyles.saveTextButtonStyle}
               onPress={handleSave}
-              disabled={loading}
             />
           </View>
         </View>

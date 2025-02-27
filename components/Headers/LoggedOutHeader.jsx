@@ -3,10 +3,10 @@ import { Text, View } from "react-native";
 import BackButton from "../Buttons/BackButton";
 import titlesStyles from "../../styles/commons/titlesStyles";
 
-const LoggedOutHeader = ({ title, destiny, childName=null }) => {
+const LoggedOutHeader = ({ title, backButtonDestiny, childName=null }) => {
   return (
     <View style={titlesStyles.topTitleMainViewTag}>
-      <BackButton destiny={destiny} childName={childName} />
+      <BackButton  childName={childName} backButtonDestiny={backButtonDestiny}/>
       <Text style={titlesStyles.topTitleTextStyle}>{title}</Text>
     </View>
   );

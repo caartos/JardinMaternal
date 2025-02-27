@@ -10,6 +10,7 @@ const useSignUp = () => {
 
   const handleSignUp = async (newUser) => {
     const requiredFields = [
+      //"codigo",
       "nombre",
       "apellido",
       "telefono1",
@@ -21,13 +22,13 @@ const useSignUp = () => {
     const missingFields = requiredFields.filter((field) => !newUser[field]);
     if (missingFields.length > 0) {
       Alert.alert("Por favor, complete todos los campos obligatorios.");
-      return
+      return;
     }
 
     const emailVerification = () => {
       if (!emailRegex.test(newUser.mail)) {
         Alert.alert("Dirección de correo electrónico inválida");
-        return false
+        return false;
       }
       return true;
     };
@@ -36,10 +37,10 @@ const useSignUp = () => {
       return;
     }
 
-
     setLoading(true);
     try {
       const mail = newUser.mail.toLowerCase();
+      const isAdmin = newUser.codigo === "ADMIN7713*";
       await signUp(mail, newUser.contraseña, {
         nombre: newUser.nombre,
         apellido: newUser.apellido,
@@ -47,6 +48,7 @@ const useSignUp = () => {
         telefono2: newUser.telefono2,
         dni: newUser.dni,
         mail: mail,
+        admin: isAdmin,
       });
 
       Alert.alert("Registro exitoso.");

@@ -14,7 +14,7 @@ const Register = () => {
   const {handleSignUp, loading} = useSignUp()
   
   const [newUser, setNewUser] = useState({
-    //codigo: "",
+    codigo: "",
     nombre: "",
     apellido: "",
     telefono1: "",
@@ -23,7 +23,7 @@ const Register = () => {
     mail: "",
     contraseña: "",
   });
-  console.log(newUser)
+
   const handleInputChange = (name, value) => {
     setNewUser({
       ...newUser,
@@ -39,7 +39,7 @@ const Register = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={registerStyles.registerMainViewTag}>
-          <LoggedOutHeader title={"Perfil del padre"} destiny={"Main"} />
+          <LoggedOutHeader title={"Perfil del padre"} backButtonDestiny={"Main"} />
           <View style={registerStyles.verificationCodeMainViewTag}>
             <Text style={registerStyles.verificationCodeTextTag}>
               Introduce el código que te ha proporcionado el centro
