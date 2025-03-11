@@ -52,6 +52,7 @@ const useCreateChild = (userId) => {
       ...child,
       fechaDeNacimiento: formattedDate,
       profileImage: imageUrl,
+      roomId: "",
       parentId: userId,
       parentId2: child.parentId2 || null,
     };

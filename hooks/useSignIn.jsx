@@ -26,12 +26,16 @@ export const useSignIn = () => {
       );
 
       dispatch(setUser(userData));
-      if (userData.admin) {
+      if (userData.userType === "ADMIN") {
         navigateToScreen("AdminMenu");
-      } else {
+      } else if (userData.userType === "PADRE") {
         const childrenList = await fetchUserChildren(userCredential.user.uid);
         dispatch(setChildren(childrenList));
         navigateToScreen("LoggedMenu");
+      } else if (userData.userType === "MAESTRO") {
+        navigateToScreen("TeacherMenu");
+      } else {
+        Alert.alert("Error", "Tipo de usuario desconocido.");
       }
     } catch (error) {
       if (

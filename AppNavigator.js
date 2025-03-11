@@ -13,6 +13,10 @@ import ChatScreen from "./src/ChatScreen";
 import AdminMenu from "./src/Admin/AdminMenu";
 import CreateCircular from "./src/Admin/CreateCircular";
 import AllCirculars from "./src/Admin/AllCirculars";
+import GenerateCode from "./src/Admin/GenerateCode";
+import RoomAndChild from "./src/Admin/RoomAndChild";
+import CreateRoom from "./src/Admin/CreateRoom";
+import Room from "./src/Admin/Room";
 
 const Stack = createStackNavigator();
 
@@ -78,6 +82,26 @@ const AppNavigator = () => {
         <Stack.Screen
           name="AllCirculars"
           component={AllCirculars}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GenerateCode"
+          component={GenerateCode}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RoomAndChild"
+          component={RoomAndChild}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CreateRoom"
+          component={CreateRoom}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Room"
+          component={Room}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

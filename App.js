@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import AppNavigator from "./AppNavigator";
-import "../../Proyecto Jardin/JardinMaternal/config/firebaseConfig";
+import "./config/firebaseConfig";
 import { Provider } from "react-redux";
 import store from "./store";
 

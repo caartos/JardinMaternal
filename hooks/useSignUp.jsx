@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { signUp } from "../config/auth";
 import useNavigate from "../utils/navigation";
+import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { db } from "../config/firebaseConfig";
 
 const useSignUp = () => {
   const navigateToScreen = useNavigate();
@@ -10,7 +12,7 @@ const useSignUp = () => {
 
   const handleSignUp = async (newUser) => {
     const requiredFields = [
-      //"codigo",
+      "codigo",
       "nombre",
       "apellido",
       "telefono1",
@@ -40,7 +42,44 @@ const useSignUp = () => {
     setLoading(true);
     try {
       const mail = newUser.mail.toLowerCase();
-      const isAdmin = newUser.codigo === "ADMIN7713*";
+      let userType 
+
+
+      // Verificar el código
+      const q = query(collection(db, "codes"), where("code", "==", newUser.codigo), where("used", "==", false));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        Alert.alert("Código inválido o ya utilizado.");
+        setLoading(false);
+        return;
+      }
+
+      const codeDoc = querySnapshot.docs[0];
+      const codeData = codeDoc.data();
+
+      if (codeData.expirationTime.toDate() < new Date()) {
+        Alert.alert("El código ha expirado.");
+        setLoading(false);
+        return;
+      }
+
+      // Determinar el tipo de usuario basado en el código
+      if (newUser.codigo === "ADMIN7713*") {
+        userType = "ADMIN";
+      } else if (newUser.codigo.startsWith("alumno")) {
+        userType = "PADRE";
+      } else if (newUser.codigo.startsWith("maestro")) {
+        userType = "MAESTRO";
+      } else {
+        Alert.alert("Código inválido.");
+        setLoading(false);
+        return;
+      }
+
+      // Marcar el código como utilizado
+      await updateDoc(doc(db, "codes", codeDoc.id), { used: true });
+
       await signUp(mail, newUser.contraseña, {
         nombre: newUser.nombre,
         apellido: newUser.apellido,

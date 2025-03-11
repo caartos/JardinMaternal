@@ -13,6 +13,13 @@ const AdminMenu = () => {
     navigateToScreen("CreateCircular");
   };
 
+  const navigateToGenerateCode = () => {
+    navigateToScreen("GenerateCode");
+  }
+  const navigateToRoomAndChild = () => {
+    navigateToScreen("RoomAndChild");
+  }
+
   return (
     <SafeAreaView>
       <ScrollView style={registerStyles.registerMainViewTag}>
@@ -23,6 +30,18 @@ const AdminMenu = () => {
             title={"Circulares"}
             titleStyle={buttonStyles.adminTextButtonStyle}
             onPress={navigateToCreateCircular}
+          />
+          <Button
+            buttonRegularStyle={buttonStyles.adminMenuButtonStyle}
+            title={"Generar codigo"}
+            titleStyle={buttonStyles.adminTextButtonStyle}
+            onPress={navigateToGenerateCode}
+          />
+          <Button
+            buttonRegularStyle={buttonStyles.adminMenuButtonStyle}
+            title={"Salas y alumnos"}
+            titleStyle={buttonStyles.adminTextButtonStyle}
+            onPress={navigateToRoomAndChild}
           />
         </View>
       </ScrollView>

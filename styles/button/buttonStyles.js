@@ -80,6 +80,7 @@ const buttonStyles = StyleSheet.create({
     backgroundColor: "#d1e7dd",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom:20
   },
   adminTextButtonStyle: {
     color: "#6B7672",

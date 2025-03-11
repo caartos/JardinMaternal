@@ -58,4 +58,45 @@ const updateChildInDB = async (childId, updatedData) => {
   }
 };
 
-export { createChildInDB, fetchUserChildren, updateChildInDB };
+const fetchChildrenWithoutRoom = async () => {
+  try {
+    const q = query(collection(db, "childs"), where("roomId", "==", ""));
+    const querySnapshot = await getDocs(q);
+    const childrenList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return childrenList;
+  } catch (error) {
+    console.error("Error al obtener los niños sin sala:", error);
+    throw error;
+  }
+}
+
+const assignRoomToChild = async (childId, roomId) => {
+  try {
+    const childRef = doc(db, "childs", childId);
+    await updateDoc(childRef, { roomId });
+    console.log("Sala asignada exitosamente");
+  } catch (error) {
+    console.error("Error al asignar la sala:", error);
+    throw error;
+  }
+};
+
+const fetchChildrenByRoomId = async (roomId) => {
+  try {
+    const q = query(collection(db, "childs"), where("roomId", "==", roomId));
+    const querySnapshot = await getDocs(q);
+    const childrenList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return childrenList;
+  } catch (error) {
+    console.error("Error al obtener los niños por roomId:", error);
+    throw error;
+  }
+};
+
+export { createChildInDB, fetchUserChildren, updateChildInDB, fetchChildrenWithoutRoom, assignRoomToChild, fetchChildrenByRoomId };
