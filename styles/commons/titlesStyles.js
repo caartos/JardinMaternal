@@ -72,7 +72,11 @@ const titlesStyles = StyleSheet.create({
   circularDate: {
     fontSize: 14,
     color: "#888",
-
+  },
+  childAndRoomText: {
+    fontSize: 16,
+    color: "#e8aca0",
+    textAlign: "center",
   },
 });
 

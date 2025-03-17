@@ -9,6 +9,8 @@ import useNavigate from "../../utils/navigation";
 import { useDispatch } from "react-redux";
 import { setChildren } from "../../actions/childActions";
 import { fetchAvailableRooms } from "../../config/db/room/room";
+import titlesStyles from "../../styles/commons/titlesStyles";
+import IconButton from "../../components/Buttons/IconButton";
 
 
 
@@ -25,7 +27,7 @@ const RoomAndChild = () => {
     }
 
     const navigateToSelectedRoom = (room) => {
-        navigateToScreen("Room",  {room});
+        navigateToScreen("Room", { room });
     };
 
     useEffect(() => {
@@ -43,9 +45,6 @@ const RoomAndChild = () => {
         getRoomsList();
     }, []);
 
-    console.log("CHILDLIST", childList)
-    console.log("ROOMLIST", roomsList)
-
     const handleAssignRoom = async (childId, roomId) => {
         await assignRoomToChild(childId, roomId);
         const updatedChildren = await fetchChildrenWithoutRoom();
@@ -58,36 +57,40 @@ const RoomAndChild = () => {
             <ScrollView style={registerStyles.registerMainViewTag}>
                 <LoggedOutHeader title={"Salas y alumnos"} backButtonDestiny={"AdminMenu"} />
                 <View>
-                    <Text>Niños sin sala asignada:</Text>
-                    {childList.map((child) => (
-                        <View key={child.id} style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
-                            <Text>{child.nombre} {child.apellido}</Text>
-                            <Picker
-                                selectedValue={selectedRoom[child.id] || ""}
-                                style={{ height: 50, width: 150 }}
-                                onValueChange={(itemValue) => setSelectedRoom({ ...selectedRoom, [child.id]: itemValue })}
-                            >
-                                <Picker.Item label="Seleccionar sala" value="" />
-                                {roomsList.map((room) => (
-                                    <Picker.Item key={room.id} label={room.title} value={room.id} />
-                                ))}
-                            </Picker>
-                            <Button
-                                title="Asignar Sala"
-                                onPress={() => handleAssignRoom(child.id, selectedRoom[child.id])}
-                                disabled={!selectedRoom[child.id]}
-                            />
+                    <Text style={titlesStyles.createCircularTitle}>Niños sin sala asignada:</Text>
+                    {childList.length > 0 ? childList.map((child) => (
+                        <View key={child.id} style={{ width: "90%", flexDirection: "row", justifyContent: "space-between", alignSelf: "center", alignItems: "center", marginVertical: 10 }}>
+                            <Text style={titlesStyles.childAndRoomText}>{child.nombre} {child.apellido}</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                                <Picker
+                                    selectedValue={selectedRoom[child.id] || ""}
+                                    style={{ height: 30, width: 80, borderRadius: 10, justifyContent: "center" }}
+                                    onValueChange={(itemValue) => setSelectedRoom({ ...selectedRoom, [child.id]: itemValue })}
+                                >
+                                    <Picker.Item label="Salas" value="" />
+                                    {roomsList.map((room) => (
+                                        <Picker.Item key={room.id} label={room.title} value={room.id} />
+                                    ))}
+                                </Picker>
+                                <IconButton
+                                    iconName={"arrowright"}
+                                    onPress={() => handleAssignRoom(child.id, selectedRoom[child.id])}
+                                    size={22}
+                                    disabled={!selectedRoom[child.id]}
+                                    particularStyle={buttonStyles.asignRoomToChildButton}
+                                />
+                            </View>
                         </View>
-                    ))}
+                    )) : <Text style={titlesStyles.childAndRoomText}>No hay niños sin sala</Text>}
                 </View>
                 <View>
-                    <Text>Salas disponibles:</Text>
+                    <Text style={titlesStyles.createCircularTitle}>Salitas:</Text>
                     {roomsList.map((room) => (
                         <View key={room.id} style={{ marginVertical: 10 }}>
                             <Button
-                                buttonRegularStyle={buttonStyles.adminMenuButtonStyle}
-                                title={`Ver ${room.title}`}
-                                titleStyle={buttonStyles.adminTextButtonStyle}
+                                buttonRegularStyle={buttonStyles.createCircularButtonStyle}
+                                titleStyle={buttonStyles.createCircularTextButtonStyle}
+                                title={`Sala ${room.title}`}
                                 onPress={() => navigateToSelectedRoom(room)}
                             />
                         </View>

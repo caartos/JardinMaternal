@@ -80,7 +80,7 @@ const buttonStyles = StyleSheet.create({
     backgroundColor: "#d1e7dd",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:20
+    marginBottom: 20
   },
   adminTextButtonStyle: {
     color: "#6B7672",
@@ -109,6 +109,40 @@ const buttonStyles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     marginTop: 40,
+  },
+  asignRoomToChildButton: {
+    backgroundColor: "#e8aca0", 
+    borderRadius: 10,
+    height:30,
+    width:30, 
+    justifyContent: "center",
+    alignContent:"center"
+  },
+  chatRoomButton:{
+    borderRadius: 10,
+    backgroundColor: "#e8aca0",
+    height:30,
+    width:60,
+    justifyContent: "center",
+    alignItems: "center",
+    margin:10
+  },
+  chatRoomButtonText:{
+    color: "#fff3f1",
+    fontWeight: "bold",
+  },
+  removeChildButton: {
+    backgroundColor: "#e74c3c",
+    borderRadius: 10,
+    height:30,
+    width:60,
+    justifyContent: "center",
+    alignItems: "center",
+    margin:10
+  },
+  removeChildButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
 

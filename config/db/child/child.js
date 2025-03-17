@@ -99,4 +99,15 @@ const fetchChildrenByRoomId = async (roomId) => {
   }
 };
 
-export { createChildInDB, fetchUserChildren, updateChildInDB, fetchChildrenWithoutRoom, assignRoomToChild, fetchChildrenByRoomId };
+const removeChildFromRoom = async (childId) => {
+  try {
+    const childRef = doc(db, "childs", childId);
+    await updateDoc(childRef, { roomId: "" });
+    console.log("Alumno removido del aula exitosamente");
+  } catch (error) {
+    console.error("Error al remover al alumno del aula:", error);
+    throw error;
+  }
+};
+
+export { createChildInDB, fetchUserChildren, updateChildInDB, fetchChildrenWithoutRoom, assignRoomToChild, fetchChildrenByRoomId, removeChildFromRoom };
