@@ -19,6 +19,9 @@ const AdminMenu = () => {
   const navigateToRoomAndChild = () => {
     navigateToScreen("RoomAndChild");
   }
+  const navigateToTeachers = () => {
+    navigateToScreen("Teachers");
+  }
 
   return (
     <SafeAreaView>
@@ -42,6 +45,12 @@ const AdminMenu = () => {
             title={"Salas y alumnos"}
             titleStyle={buttonStyles.adminTextButtonStyle}
             onPress={navigateToRoomAndChild}
+          />
+          <Button
+            buttonRegularStyle={buttonStyles.adminMenuButtonStyle}
+            title={"Maestros"}
+            titleStyle={buttonStyles.adminTextButtonStyle}
+            onPress={navigateToTeachers}
           />
         </View>
       </ScrollView>

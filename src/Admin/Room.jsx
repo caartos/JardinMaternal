@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
+import { useDispatch } from "react-redux";
 import { fetchChildrenByRoomId, removeChildFromRoom } from "../../config/db/child/child";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import buttonStyles from "../../styles/button/buttonStyles";
 import Button from "../../components/Buttons/Button";
 
 const Room = ({ route }) => {
-
+  const dispatch = useDispatch();
   const { room } = route.params;
   const [childrenList, setChildrenList] = useState([]);
 
