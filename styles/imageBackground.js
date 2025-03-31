@@ -4,7 +4,7 @@ const ImageBackgroundStyles = StyleSheet.create ({
     ImageBackgroundStyle:{
             width: "100%",
             height: "100%", 
-            zIndex: "-1"
+            zIndex: -1
     }
 })
 

@@ -13,7 +13,7 @@ const buttonStyles = StyleSheet.create({
     width: "85%",
     height: "60",
     borderRadius: 60,
-    borderWidth: "3",
+    borderWidth: 3,
   },
   logInButtonStyle: {
     marginTop: 25,
