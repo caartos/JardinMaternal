@@ -1,31 +1,53 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView, ScrollView, Text, View, Alert } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import buttonStyles from "../../styles/button/buttonStyles";
-import Button from "../../components/Buttons/Button";
-import { fetchTeachers } from "../../config/db/users/users";
+import useFetchTeachers from "../../hooks/useFetchTeachers";
+import ModalSelector from "react-native-modal-selector";
+import useGetRooms from "../../hooks/useGetRooms";
+import IconButton from "../../components/Buttons/IconButton";
+import useDeleteTeacher from "../../hooks/useDeleteTeacher";
+import { assignRoomToTeacher } from "../../config/db/users/users";
 
 const Teachers = () => {
-  const [teacherList, setTeacherList] = useState([]);
+  const { teachers } = useFetchTeachers();
+  const { roomsList } = useGetRooms();
+  const { deleteUser } = useDeleteTeacher();
+  const [selectedRoom, setSelectedRoom] = useState({});
 
-  useEffect(() => {
-    const loadTeachers = async () => {
-      try {
-        const teachers = await fetchTeachers();
-        console.log("TEACHERS", teachers) 
-        setTeacherList(teachers); // Actualiza el estado con los datos obtenidos
-      } catch (error) {
-        console.error("Error al cargar los maestros:", error);
-      }
-    };
-    loadTeachers();
-  }, []);
+  const handleAssignRoomToTeacher = async (teacherId, roomId) => {
+    await assignRoomToTeacher(teacherId, roomId);
+  };
 
   const handleRemoveTeacher = (teacherId) => {
-    // Lógica para eliminar al maestro
-    console.log(`Eliminar maestro con ID: ${teacherId}`);
+    Alert.alert(
+      "Eliminar Maestro",
+      "¿Estás seguro de que deseas eliminar este maestro?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteUser(teacherId); // Llama a la función para eliminar al maestro
+              console.log(`Maestro con ID ${teacherId} eliminado exitosamente.`);
+            } catch (err) {
+              console.error("Error al eliminar el maestro:", err);
+              Alert.alert(
+                "Error",
+                `No se pudo eliminar el maestro: ${err.message}`
+              );
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -35,8 +57,8 @@ const Teachers = () => {
         <Text style={titlesStyles.createCircularTitle}>
           Todos los maestros:
         </Text>
-        {teacherList.length > 0 ? (
-          teacherList.map((teacher) => (
+        {teachers.length > 0 ? (
+          teachers.map((teacher) => (
             <View
               key={teacher.id}
               style={{
@@ -58,16 +80,61 @@ const Teachers = () => {
                   alignItems: "center",
                 }}
               >
-                <Button
-                  buttonRegularStyle={buttonStyles.chatRoomButton}
-                  title={"Chat"}
-                  titleStyle={buttonStyles.chatRoomButtonText}
+                <ModalSelector
+                  data={roomsList.map((room) => ({
+                    key: room.id,
+                    label: room.title,
+                  }))}
+                  initValue={
+                    selectedRoom[teacher.id]
+                      ? roomsList.find(
+                          (room) => room.id === selectedRoom[teacher.id]
+                        )?.title
+                      : "Seleccionar sala"
+                  }
+                  onChange={(option) =>
+                    setSelectedRoom({
+                      ...selectedRoom,
+                      [teacher.id]: option.key,
+                    })
+                  }
+                  style={{
+                    height: 60,
+                    width: 120,
+                    justifyContent: "center",
+                    borderRadius: 10,
+                    borderColor: "#ccc",
+                  }}
+                  selectTextStyle={{ fontSize: 14 }}
+                  optionContainerStyle={{ backgroundColor: "#fff3f1" }}
+                  cancelStyle={{ backgroundColor: "#fff3f1" }}
+                  cancelText="Cancelar"
+                  optionTextStyle={{
+                    fontSize: 14,
+                    color: "#e8aca0",
+                    backgroundColor: "#fff3f1",
+                  }}
                 />
-                <Button
-                  buttonRegularStyle={buttonStyles.removeChildButton}
-                  title="Sacar"
-                  titleStyle={buttonStyles.removeChildButtonText}
+                <IconButton
+                  iconName={"arrowright"}
+                  onPress={() =>
+                    handleAssignRoomToTeacher(
+                      teacher.id,
+                      selectedRoom[teacher.id]
+                    )
+                  }
+                  color={"#6B7672"}
+                  size={22}
+                  disabled={!selectedRoom[teacher.id]}
+                  particularStyle={buttonStyles.asignRoomToChildButton}
+                />
+                <IconButton
+                  iconName={"deleteuser"}
                   onPress={() => handleRemoveTeacher(teacher.id)}
+                  color={"#ffe9e4"}
+                  size={22}
+                  disabled={!selectedRoom[teacher.id]}
+                  particularStyle={buttonStyles.deleteTeacherButton}
                 />
               </View>
             </View>

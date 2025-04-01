@@ -52,6 +52,7 @@ const CircularsEditingView = ({
                 />
                 <IconButton
                   iconName="cross"
+                  color={"#6B7672"}
                   onPress={() => setEditingCircular(null)}
                   size={50}
                 />

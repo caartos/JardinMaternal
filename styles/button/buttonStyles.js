@@ -118,6 +118,14 @@ const buttonStyles = StyleSheet.create({
     justifyContent: "center",
     alignContent:"center"
   },
+  deleteTeacherButton: {
+    backgroundColor: "#e74c3c", 
+    borderRadius: 10,
+    height:30,
+    width:30, 
+    justifyContent: "center",
+    alignContent:"center"
+  },
   chatRoomButton:{
     borderRadius: 10,
     backgroundColor: "#e8aca0",

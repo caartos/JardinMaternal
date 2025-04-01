@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 import { Entypo } from "react-native-vector-icons";
 
-const IconButton = ({ iconName, onPress, size, particularStyle }) => {
+const IconButton = ({ iconName, onPress, size, particularStyle,color }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -13,7 +13,7 @@ const IconButton = ({ iconName, onPress, size, particularStyle }) => {
       {iconName == "cross" ? (
         <Entypo name={iconName} size={size} color="#6B7672" />
       ) : (
-        <AntDesign name={iconName} size={size} color="#6B7672"  />
+        <AntDesign name={iconName} size={size} color={color}  />
       )}
 
     </TouchableOpacity>

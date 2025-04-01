@@ -4,6 +4,7 @@ import { signUp } from "../config/auth";
 import useNavigate from "../utils/navigation";
 import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../config/firebaseConfig";
+import { is } from "date-fns/locale";
 
 const useSignUp = () => {
   const navigateToScreen = useNavigate();
@@ -43,7 +44,7 @@ const useSignUp = () => {
     try {
       const mail = newUser.mail.toLowerCase();
       let userType 
-
+      let isAdmin
 
       // Verificar el código
       const q = query(collection(db, "codes"), where("code", "==", newUser.codigo), where("used", "==", false));
@@ -77,6 +78,11 @@ const useSignUp = () => {
         return;
       }
 
+      if( userType === "ADMIN"){
+        isAdmin = true;
+      }else{
+        isAdmin = false;
+      }
       // Marcar el código como utilizado
       await updateDoc(doc(db, "codes", codeDoc.id), { used: true });
 
@@ -87,6 +93,7 @@ const useSignUp = () => {
         telefono2: newUser.telefono2,
         dni: newUser.dni,
         mail: mail,
+        userType: userType,
         admin: isAdmin,
       });
 

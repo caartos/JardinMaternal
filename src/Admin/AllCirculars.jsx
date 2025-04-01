@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView } from "react-native";
 import AdminOptionsHeader from "../../components/Headers/AdminOptionsHeader";
 import registerStyles from "../../styles/src/registerStyles";
 import titlesStyles from "../../styles/commons/titlesStyles";
-import inputStyles from "../../styles/input/inputStyles";
-import Input from "../../components/Input/Input";
-import IconButton from "../../components/Buttons/IconButton";
 import useFetchCirculars from "../../hooks/useFetchCirculars";
 import useDeleteCircular from "../../hooks/useDeleteCircular";
 import useUpdateCircular from "../../hooks/useUpdateCircular";

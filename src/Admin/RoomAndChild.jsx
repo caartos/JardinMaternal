@@ -1,5 +1,4 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import registerStyles from "../../styles/src/registerStyles";
 import { useEffect, useState } from "react";
 import {
@@ -12,16 +11,17 @@ import buttonStyles from "../../styles/button/buttonStyles";
 import useNavigate from "../../utils/navigation";
 import { useDispatch } from "react-redux";
 import { setChildren } from "../../actions/childActions";
-import { fetchAvailableRooms } from "../../config/db/room/room";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import IconButton from "../../components/Buttons/IconButton";
 import ModalSelector from "react-native-modal-selector";
+import useGetRooms from "../../hooks/useGetRooms";
+import useGetChildrenWithoutRoom from "../../hooks/useGetChildrenWithoutRoom";
 
 const RoomAndChild = () => {
   const navigateToScreen = useNavigate();
   const dispatch = useDispatch();
-  const [childList, setChildList] = useState([]);
-  const [roomsList, setRoomsList] = useState([]);
+  const { roomsList } = useGetRooms();
+  const { childrenList } = useGetChildrenWithoutRoom();
   const [selectedRoom, setSelectedRoom] = useState({});
 
   const navigateToCreateRoom = () => {
@@ -31,21 +31,6 @@ const RoomAndChild = () => {
   const navigateToSelectedRoom = (room) => {
     navigateToScreen("Room", { room });
   };
-
-  useEffect(() => {
-    const getChildList = async () => {
-      const children = await fetchChildrenWithoutRoom();
-      setChildList(children);
-    };
-
-    const getRoomsList = async () => {
-      const rooms = await fetchAvailableRooms();
-      setRoomsList(rooms);
-    };
-
-    getChildList();
-    getRoomsList();
-  }, []);
 
   const handleAssignRoom = async (childId, roomId) => {
     await assignRoomToChild(childId, roomId);
@@ -65,8 +50,8 @@ const RoomAndChild = () => {
           <Text style={titlesStyles.createCircularTitle}>
             Niños sin sala asignada:
           </Text>
-          {childList.length > 0 ? (
-            childList.map((child) => (
+          {childrenList.length > 0 ? (
+            childrenList.map((child) => (
               <View
                 key={child.id}
                 style={{
@@ -78,9 +63,11 @@ const RoomAndChild = () => {
                   marginVertical: 10,
                 }}
               >
-                <View style={{
-                  width: "50%",
- }}>
+                <View
+                  style={{
+                    width: "50%",
+                  }}
+                >
                   <Text style={titlesStyles.childAndRoomText}>
                     {child.nombre} {child.apellido}
                   </Text>
@@ -93,22 +80,18 @@ const RoomAndChild = () => {
                     alignItems: "center",
                   }}
                 >
-                  {/* <Picker
-                                    selectedValue={selectedRoom[child.id] || ""}
-                                    style={{ height: 30, width: 120, borderRadius: 10, justifyContent: "center" }}
-                                    onValueChange={(itemValue) => setSelectedRoom({ ...selectedRoom, [child.id]: itemValue })}
-                                >
-                                    <Picker.Item label="Salas" value="" />
-                                    {roomsList.map((room) => (
-                                        <Picker.Item key={room.id} label={room.title} value={room.id} />
-                                    ))}
-                                </Picker> */}
                   <ModalSelector
                     data={roomsList.map((room) => ({
                       key: room.id,
                       label: room.title,
                     }))}
-                    initValue={selectedRoom[child.id] ? roomsList.find((room) => room.id === selectedRoom[child.id])?.title : "Seleccionar sala"}
+                    initValue={
+                      selectedRoom[child.id]
+                        ? roomsList.find(
+                            (room) => room.id === selectedRoom[child.id]
+                          )?.title
+                        : "Seleccionar sala"
+                    }
                     onChange={(option) =>
                       setSelectedRoom({
                         ...selectedRoom,
@@ -121,19 +104,23 @@ const RoomAndChild = () => {
                       justifyContent: "center",
                       borderRadius: 10,
                       borderColor: "#ccc",
-                      
                     }}
-                    selectTextStyle={{ fontSize: 14,  }}
-                    optionContainerStyle={{ backgroundColor:"#fff3f1" }}
-                    cancelStyle={{ backgroundColor:"#fff3f1" }}
+                    selectTextStyle={{ fontSize: 14 }}
+                    optionContainerStyle={{ backgroundColor: "#fff3f1" }}
+                    cancelStyle={{ backgroundColor: "#fff3f1" }}
                     cancelText="Cancelar"
-                    optionTextStyle={{ fontSize: 14, color:"#e8aca0", backgroundColor:"#fff3f1"  }}
+                    optionTextStyle={{
+                      fontSize: 14,
+                      color: "#e8aca0",
+                      backgroundColor: "#fff3f1",
+                    }}
                   />
                   <IconButton
                     iconName={"arrowright"}
                     onPress={() =>
                       handleAssignRoom(child.id, selectedRoom[child.id])
                     }
+                    color={"#6B7672"}
                     size={22}
                     disabled={!selectedRoom[child.id]}
                     particularStyle={buttonStyles.asignRoomToChildButton}

@@ -4,10 +4,11 @@ import {
   signInWithEmailAndPassword,
   updatePassword,
 } from "firebase/auth";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "./firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { deleteUser as deleteAuthUser } from "firebase/auth";
 
 // Función para registrar usuarios
 const signUp = async (email, password, userData) => {
@@ -157,5 +158,29 @@ const updateChildProfile = async (user, childData) => {
   }
 };
 
+const deleteUser = async (userId) => {
+  try {
+    // Eliminar al usuario de Firestore
+    const userRef = doc(db, "users", userId);
+    await deleteDoc(userRef);
+    console.log(`Usuario con ID ${userId} eliminado de Firestore.`);
+    console.log("ESTOY EN AUTH", userId);
+    // Eliminar al usuario de Firebase Authentication
+    const currentUser = auth.currentUser;
+    if (currentUser && currentUser.uid === userId) {
+      await deleteAuthUser(currentUser);
+      console.log(`Usuario con ID ${userId} eliminado de Authentication.`);
+    } else {
+      throw new Error(
+        "No se puede eliminar el usuario de Authentication. Asegúrate de que el usuario esté autenticado."
+      );
+    }
+  } catch (error) {
+    console.error("Error al eliminar el usuario:", error);
+    throw error;
+  }
+};
+
+
 // Exportamos las funciones
-export { signUp, signIn, updateProfile, updateChildProfile };
+export { signUp, signIn, updateProfile, updateChildProfile, deleteUser };

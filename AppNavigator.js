@@ -20,6 +20,7 @@ import Room from "./src/Admin/Room";
 import Teacher from "./src/Admin/Teachers";
 import { fetchTeachers } from "./config/db/users/users";
 import Teachers from "./src/Admin/Teachers";
+import AdminChatScreen from "./src/Admin/AdminChatScreen";
 
 const Stack = createStackNavigator();
 
@@ -105,6 +106,11 @@ const AppNavigator = () => {
         <Stack.Screen
           name="Room"
           component={Room}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AdminChatScreen"
+          component={AdminChatScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

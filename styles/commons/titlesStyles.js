@@ -57,9 +57,21 @@ const titlesStyles = StyleSheet.create({
   createCircularTitle:{
     color: "#e8aca0",
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 18,
     textAlign: "center",
-    padding: 25
+    padding: 20
+  },
+  teachersList:{
+    color: "#6B7672",
+    fontWeight: "bold",
+    fontSize: 17,
+    padding: 20
+  },
+  teachersName:{
+    fontWeight:"normal",
+    fontSize: 16,
+    color: "#6B7672",
+    textAlign: "center",
   },
   circularTitle: {
     fontSize: 18,
@@ -74,6 +86,7 @@ const titlesStyles = StyleSheet.create({
     color: "#888",
   },
   childAndRoomText: {
+    fontWeight:"normal",
     fontSize: 16,
     color: "#e8aca0",
     textAlign: "center",
