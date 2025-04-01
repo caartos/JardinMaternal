@@ -1,4 +1,5 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
+//import { Picker } from "@react-native-picker/picker";
 import registerStyles from "../../styles/src/registerStyles";
 import { useEffect, useState } from "react";
 import {
