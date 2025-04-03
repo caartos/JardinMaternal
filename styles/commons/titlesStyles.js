@@ -31,7 +31,7 @@ const titlesStyles = StyleSheet.create({
     width: "85%",
     height: "50",
     marginLeft: "7.5%",
-    marginTop:30
+    marginTop: 30
   },
   childMenuHeaderStyle: {
     flexDirection: "row",
@@ -51,46 +51,73 @@ const titlesStyles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 17,
     textAlign: "center",
-    width:"85%",
-    paddingRight:"15%"
+    width: "85%",
+    paddingRight: "15%"
   },
-  createCircularTitle:{
+  createCircularTitle: {
     color: "#e8aca0",
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
     padding: 20
   },
-  teachersList:{
+  teachersList: {
     color: "#6B7672",
     fontWeight: "bold",
     fontSize: 17,
-    padding: 20
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingBottom: 10,
   },
-  teachersName:{
-    fontWeight:"normal",
+  childList: {
+    color: "#e8aca0",
+    fontWeight: "bold",
+    fontSize: 17,
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingBottom: 10,
+  },
+  teachersName: {
+    fontWeight: "normal",
     fontSize: 16,
     color: "#6B7672",
-    textAlign: "center",
+    paddingBottom: 10
+  },
+  circularSender: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
   circularTitle: {
     fontSize: 18,
     fontWeight: "bold",
+
   },
   circularContent: {
     fontSize: 16,
-    marginTop: 10,
+    marginTop: 5,
   },
   circularDate: {
     fontSize: 14,
     color: "#888",
+    paddingBottom: 10
   },
   childAndRoomText: {
-    fontWeight:"normal",
+    fontWeight: "normal",
     fontSize: 16,
     color: "#e8aca0",
     textAlign: "center",
   },
+  childrenListView: {
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignSelf: "center",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  childrenListTitleView: {
+    width: "50%",
+  }
 });
 
 export default titlesStyles;

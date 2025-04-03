@@ -9,8 +9,11 @@ import buttonStyles from "../../styles/button/buttonStyles";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import { createCircular } from "../../config/db/circular/createCircular";
 import useNavigate from "../../utils/navigation";
+import { useSelector } from "react-redux";
 
 const CreateCircular = () => {
+  const loggedUser = useSelector((state) => state.user.user);
+  console.log("Logged user:", loggedUser);
   const navigateToScreen = useNavigate()
   const [circular, setCircular] = useState({
     titulo: "",
@@ -34,9 +37,15 @@ const CreateCircular = () => {
     }
 
     try {
+      const cargo = loggedUser.userType === "ADMIN" ? "Directora" : "Seño";
+      const destinatario = loggedUser.userType === "ADMIN" ? "Todos" : aula;
+
       await createCircular({
         titulo: circular.titulo,
         circular: circular.circular,
+        nombre: loggedUser.nombre,
+        cargo: cargo,
+        destinatario: destinatario
       });
       Alert.alert("Éxito", "Circular creada exitosamente.");
       setCircular({ titulo: "", circular: "" }); // Limpiar los campos después de crear la circular

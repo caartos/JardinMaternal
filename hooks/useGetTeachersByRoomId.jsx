@@ -19,7 +19,7 @@ const useGetTeachersByRoomId = (roomId) => {
     getTeachers();
   }, [roomId]);
 
-  return { teachersList, error };
+  return { teachersList,setTeachersList, error };
 };
 
 export default useGetTeachersByRoomId;

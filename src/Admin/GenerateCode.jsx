@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import Button from "../../components/Buttons/Button";
 import buttonStyles from "../../styles/button/buttonStyles";
@@ -10,11 +10,13 @@ const GenerateCode = () => {
 
   const generateParentCode = async () => {
     const newCode = await createCode("alumno-")
+    Alert.alert("Codigo:", newCode);
     console.log("Codigo para padre generado", newCode);
   };
 
   const generateTeacherCode = async () => {
     const newCode = await createCode("maestro-")
+    Alert.alert("Codigo:", newCode);
     console.log("Codigo para padre generado", newCode);
   }
 

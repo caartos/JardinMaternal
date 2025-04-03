@@ -111,47 +111,71 @@ const buttonStyles = StyleSheet.create({
     marginTop: 40,
   },
   asignRoomToChildButton: {
-    backgroundColor: "#e8aca0", 
+    backgroundColor: "#e8aca0",
     borderRadius: 10,
-    height:30,
-    width:30, 
+    height: 30,
+    width: 30,
     justifyContent: "center",
-    alignContent:"center"
+    alignContent: "center"
   },
   deleteTeacherButton: {
-    backgroundColor: "#e74c3c", 
+    backgroundColor: "#e74c3c",
     borderRadius: 10,
-    height:30,
-    width:30, 
+    height: 30,
+    width: 30,
     justifyContent: "center",
-    alignContent:"center"
+    alignContent: "center"
   },
-  chatRoomButton:{
+  chatRoomButton: {
     borderRadius: 10,
     backgroundColor: "#e8aca0",
-    height:30,
-    width:60,
+    height: 30,
+    width: 60,
     justifyContent: "center",
     alignItems: "center",
-    margin:10
+    margin: 10
   },
-  chatRoomButtonText:{
+  chatRoomButtonText: {
     color: "#fff3f1",
     fontWeight: "bold",
   },
   removeChildButton: {
     backgroundColor: "#e74c3c",
     borderRadius: 10,
-    height:30,
-    width:60,
+    height: 30,
+    width: 60,
     justifyContent: "center",
     alignItems: "center",
-    margin:10
+    margin: 10
   },
   removeChildButtonText: {
     color: "#fff",
     fontWeight: "bold",
   },
+  removeAllButton: {
+    backgroundColor: "#e74c3c",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
+  removeAllButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  roomsButtonView: {
+    marginVertical: 10
+  },
+  createRoomButtonView: {
+    alignItems: "center",
+    paddingTop: 20
+  },
+  modalSelectorsView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 
 export default buttonStyles;

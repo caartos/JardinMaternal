@@ -9,6 +9,7 @@ import {
   getDoc,
   deleteDoc,
   onSnapshot,
+  arrayRemove,
 } from "firebase/firestore";
 import { db, functions } from "../../firebaseConfig";
 import { Alert } from "react-native";
@@ -45,6 +46,10 @@ const fetchTeachers = (callback, errorCallback) => {
 };
 
 const assignRoomToTeacher = async (teacherId, roomId) => {
+  if (!roomId) {
+    Alert.alert("Error", "Necesitas seleccionar una sala.");
+    return;
+  }
   try {
     const teacherRef = doc(db, "users", teacherId);
     const teacherDoc = await getDoc(teacherRef);
@@ -115,5 +120,18 @@ const deleteTeacher = async (teacherId) => {
   }
 };
 
+const removeRoomFromTeacher = async (teacherId, roomId) => {
+  try {
+    const teacherRef = doc(db, "users", teacherId);
+    await updateDoc(teacherRef, {
+      rooms: arrayRemove(roomId), // Elimina el roomId del array de rooms
+    });
+    console.log(`Room ${roomId} eliminado del maestro ${teacherId}`);
+  } catch (error) {
+    console.error("Error al eliminar el room del maestro:", error);
+    throw error;
+  }
+};
 
-export { fetchTeachers, assignRoomToTeacher, fetchTeachersByRoomId, deleteTeacher };
+
+export { fetchTeachers, assignRoomToTeacher, fetchTeachersByRoomId, deleteTeacher, removeRoomFromTeacher };

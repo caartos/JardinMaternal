@@ -62,10 +62,12 @@ const CircularsEditingView = ({
             <>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <View>
-                  <Text style={titlesStyles.circularTitle}>{circular.titulo}</Text>
+                  <Text style={titlesStyles.circularSender}>{circular.cargo} {circular.nombre}</Text>
                   <Text style={titlesStyles.circularDate}>
                     {new Date(circular.timestamp.seconds * 1000).toLocaleDateString()}
                   </Text>
+                  <Text style={titlesStyles.circularTitle}>{circular.titulo}</Text>
+                  
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
                   <IconButton iconName="delete" onPress={() => confirmDeleteCircular(circular.id)} size={25} />
