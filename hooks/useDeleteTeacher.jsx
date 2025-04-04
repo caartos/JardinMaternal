@@ -10,7 +10,18 @@ const useDeleteTeacher = () => {
   const deleteUser = async (teacherId) => {
     setIsDeleting(true);
     setError(null);
-
+     Alert.alert(
+          "Eliminar Maestro",
+          "¿Estás seguro de que deseas eliminar este maestro?",
+          [
+            {
+              text: "Cancelar",
+              style: "cancel",
+            },
+            {
+              text: "Eliminar",
+              style: "destructive",
+              onPress: async () => {
     try {
       // Llama a la función para eliminar al maestro
       await deleteTeacher(teacherId);
@@ -22,7 +33,10 @@ const useDeleteTeacher = () => {
       Alert.alert("Error", "No se pudo eliminar el maestro. Inténtalo nuevamente.");
     } finally {
       setIsDeleting(false);
-    }
+    }},
+  },
+]
+);
   };
 
   return { deleteUser, isDeleting, error };

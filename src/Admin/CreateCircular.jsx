@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, SafeAreaView, Text, View, ScrollView } from "react-native";
+import { SafeAreaView, Text, ScrollView } from "react-native";
 import AdminOptionsHeader from "../../components/Headers/AdminOptionsHeader";
 import registerStyles from "../../styles/src/registerStyles";
 import Input from "../../components/Input/Input";
@@ -7,14 +7,14 @@ import inputStyles from "../../styles/input/inputStyles";
 import Button from "../../components/Buttons/Button";
 import buttonStyles from "../../styles/button/buttonStyles";
 import titlesStyles from "../../styles/commons/titlesStyles";
-import { createCircular } from "../../config/db/circular/createCircular";
 import useNavigate from "../../utils/navigation";
 import { useSelector } from "react-redux";
+import useCreateCircular from "../../hooks/useCreateCircular";
 
 const CreateCircular = () => {
   const loggedUser = useSelector((state) => state.user.user);
-  console.log("Logged user:", loggedUser);
   const navigateToScreen = useNavigate()
+  const { createCircularHandler } = useCreateCircular();
   const [circular, setCircular] = useState({
     titulo: "",
     circular: "",
@@ -23,6 +23,7 @@ const CreateCircular = () => {
   const navigateToAllCirculars = () => {
     navigateToScreen("AllCirculars");
   };
+
   const handleInputChange = (name, value) => {
     setCircular({
       ...circular,
@@ -31,28 +32,7 @@ const CreateCircular = () => {
   };
 
   const handleCreateCircular = async () => {
-    if (!circular.titulo || !circular.circular) {
-      Alert.alert("Error", "Por favor, complete ambos campos.");
-      return;
-    }
-
-    try {
-      const cargo = loggedUser.userType === "ADMIN" ? "Directora" : "Seño";
-      const destinatario = loggedUser.userType === "ADMIN" ? "Todos" : aula;
-
-      await createCircular({
-        titulo: circular.titulo,
-        circular: circular.circular,
-        nombre: loggedUser.nombre,
-        cargo: cargo,
-        destinatario: destinatario
-      });
-      Alert.alert("Éxito", "Circular creada exitosamente.");
-      setCircular({ titulo: "", circular: "" }); // Limpiar los campos después de crear la circular
-    } catch (error) {
-      Alert.alert("Error", "Hubo un problema al crear la circular.");
-      console.error("Error al crear la circular:", error);
-    }
+    await createCircularHandler(circular, loggedUser, "Aula", setCircular);
   };
 
   return (

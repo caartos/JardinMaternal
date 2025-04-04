@@ -28,16 +28,12 @@ const GenerateCode = () => {
           <Button
             buttonRegularStyle={buttonStyles.createCircularButtonStyle}
             titleStyle={buttonStyles.createCircularTextButtonStyle}
-            //buttonRegularStyle={buttonStyles.adminMenuButtonStyle}
-            //titleStyle={buttonStyles.adminTextButtonStyle}
             title={"Codigo para padres"}
             onPress={generateParentCode}
           />
           <Button
             buttonRegularStyle={buttonStyles.createCircularButtonStyle}
             titleStyle={buttonStyles.createCircularTextButtonStyle}
-            //buttonRegularStyle={buttonStyles.adminMenuButtonStyle}
-            //titleStyle={buttonStyles.adminTextButtonStyle}
             title={"Codigo para profesores"}
             onPress={generateTeacherCode}
           />

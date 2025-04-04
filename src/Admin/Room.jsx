@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
+import React from "react";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import { useDispatch } from "react-redux";
-import {
-  fetchChildrenByRoomId,
-  removeAllChildrenFromRoom,
-  removeChildFromRoom,
-} from "../../config/db/child/child";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import buttonStyles from "../../styles/button/buttonStyles";
 import Button from "../../components/Buttons/Button";
 import useNavigate from "../../utils/navigation";
 import useGetChildrenByRoomId from "../../hooks/useGetChildrenByRoomId";
 import useGetTeachersByRoomId from "../../hooks/useGetTeachersByRoomId";
-import { removeRoomFromTeacher } from "../../config/db/users/users";
-import { setChildren } from "../../actions/childActions";
+import useRemoveTeacher from "../../hooks/useRemoveTeacher";
+import useRemoveChildFromRoom from "../../hooks/useRemoveChildFromRoom";
+import useRemoveAllChildrenFromRoom from "../../hooks/useRemoveAllChildren";
 
 const Room = ({ route }) => {
   const navigateToScreen = useNavigate();
@@ -24,40 +20,12 @@ const Room = ({ route }) => {
   const { childrenList, setChildrenList } = useGetChildrenByRoomId(room.id);
   const { teachersList, setTeachersList } = useGetTeachersByRoomId(room.id);
 
+  const { removeTeacher } = useRemoveTeacher(teachersList, setTeachersList);
+  const { removeChild } = useRemoveChildFromRoom(childrenList, setChildrenList);
+  const { removeAllChildren } = useRemoveAllChildrenFromRoom(setChildrenList);
+
   const handleRemoveTeacher = async (teacherId) => {
-    Alert.alert(
-      "Sacar maestro",
-      "¿Estás seguro de que deseas sacar este maestro del aula?",
-      [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Eliminar",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              // Llama a la función para eliminar el roomId del maestro en la base de datos
-              await removeRoomFromTeacher(teacherId, room.id);
-
-              // Actualiza la lista de maestros localmente
-              const updatedTeachersList = teachersList.filter(
-                (teacher) => teacher.id !== teacherId
-              );
-
-              // Aquí puedes actualizar el estado si es necesario
-              setTeachersList(updatedTeachersList);
-
-              console.log(`Maestro ${teacherId} eliminado de la sala ${room.id}`);
-            } catch (error) {
-              console.error("Error al remover al maestro del aula:", error);
-            }
-          },
-        },
-      ]
-    );
-
+    await removeTeacher(teacherId, room.id);
   };
 
   const handleChatWithChild = (chatWith, parentId) => {
@@ -65,67 +33,11 @@ const Room = ({ route }) => {
   };
 
   const handleRemoveChild = async (childId) => {
-    Alert.alert(
-      "Sacar alumno",
-      "¿Estás seguro de que deseas sacar este alumno del aula?",
-      [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Eliminar",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await removeChildFromRoom(childId);
-
-              const updatedChildrenList = childrenList.filter(
-                (child) => child.id !== childId
-              );
-              setChildrenList(updatedChildrenList);
-
-              dispatch(setChildren(updatedChildrenList));
-            } catch (error) {
-              console.error("Error al remover al alumno del aula:", error);
-            }
-          },
-        },
-      ]
-    );
+    await removeChild(childId)
   };
 
   const handleRemoveAllChildren = async () => {
-    Alert.alert(
-      "Sacar a todos los alumnos",
-      "¿Estás seguro de que deseas sacar a todos los alumnos del aula?",
-      [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Eliminar",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              // Llama a la función para remover a todos los niños del aula
-              await removeAllChildrenFromRoom(room.id);
-
-              // Actualiza la lista de niños localmente
-              setChildrenList([]);
-
-              // Actualiza el estado global en Redux
-              dispatch(setChildren([]));
-
-              console.log(`Todos los alumnos han sido removidos de la sala ${room.id}`);
-            } catch (error) {
-              console.error("Error al remover a todos los alumnos del aula:", error);
-            }
-          },
-        },
-      ]
-    );
+    await removeAllChildren(room.id);
   };
 
   return (

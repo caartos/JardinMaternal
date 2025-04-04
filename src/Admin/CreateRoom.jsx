@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View,Alert } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import { useState } from "react";
 import titlesStyles from "../../styles/commons/titlesStyles";
@@ -8,9 +8,10 @@ import Button from "../../components/Buttons/Button";
 import Input from "../../components/Input/Input";
 import Title from "../../components/Title/Title";
 import inputStyles from "../../styles/input/inputStyles";
-import { createRoomInDB } from "../../config/db/room/room";
+import useCreateRoom from "../../hooks/useCreateRoom";
 
 const CreateRoom = () => {
+  const { createRoom } = useCreateRoom();
   const [room, setRoom] = useState({
     title: "",
     age: "",
@@ -24,23 +25,13 @@ const CreateRoom = () => {
   };
 
   const handleCreateRoom = async () => {
-    // Validación de campos
-    if (!room.title.trim() || !room.age.trim()) {
-      Alert.alert("Error", "Todos los campos deben estar completos.");
-      return;
-    }
-    try {
-      const roomId = await createRoomInDB(room);
-      console.log("Sala creada con ID: ", roomId);
-    } catch (error) {
-      console.error("Error al crear la sala: ", error);
-    }
+    await createRoom(room, setRoom);
   };
 
   return (
     <SafeAreaView>
       <View style={registerStyles.registerMainViewTag}>
-        <LoggedOutHeader title={"Crear aula"} backButtonDestiny={"AdminMenu"} />
+        <LoggedOutHeader title={"Crear aula"} backButtonDestiny={"RoomAndChild"} />
         <View>
           <Title
             titleStyle={titlesStyles.createCircularTitle}

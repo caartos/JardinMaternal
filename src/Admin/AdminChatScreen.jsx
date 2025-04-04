@@ -18,13 +18,11 @@ const AdminChatScreen = ({ route }) => {
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
   const { messages, sendMessage } = useAdminChat(admin, parentId); // Reutiliza el hook `useChat`
-    console.log("MESSAGES =====> ", messages)
   const handleSend = () => {
     sendMessage(newMessage);
     //sendMessage(newMessage, admin);
     setNewMessage("");
   };
-
   
   return (
     <SafeAreaView style={{ flex: 1 }}>
