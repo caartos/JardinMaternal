@@ -4,11 +4,11 @@ import { View } from "react-native";
 import buttonStyles from "../../styles/button/buttonStyles";
 import useNavigate from "../../utils/navigation";
 
-const ChatButtonsView = ({childName}) => {
+const ChatButtonsView = ({childName, room}) => {
   const navigateToScreen = useNavigate()
 
   const handleChatWithSeño = () => {
-    navigateToScreen("ChatScreen", { chatWith: "la seño", childName });
+    navigateToScreen("ChatScreen", { chatWith: room.title, childName });
   };
 
   const handleChatWithDirectora = () => {

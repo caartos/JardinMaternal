@@ -51,24 +51,48 @@ const assignRoomToTeacher = async (teacherId, roomId) => {
     return;
   }
   try {
+    // Referencia al documento del maestro
     const teacherRef = doc(db, "users", teacherId);
     const teacherDoc = await getDoc(teacherRef);
 
     if (teacherDoc.exists()) {
       const teacherData = teacherDoc.data();
 
-      // Verifica si el roomId ya está en el array rooms
+      // Verifica si el roomId ya está en el array rooms del maestro
       if (teacherData.rooms && teacherData.rooms.includes(roomId)) {
         Alert.alert("Error", "Esta maestra ya tiene esta sala asignada.");
         return;
       }
 
-      // Si no está, agrega el roomId al array rooms
+      // Agrega el roomId al array rooms del maestro
       await updateDoc(teacherRef, {
         rooms: arrayUnion(roomId),
       });
-      Alert.alert("Sala agregada exitosamente");
-      console.log("Sala asignada exitosamente");
+
+      // Referencia al documento de la sala
+      const roomRef = doc(db, "rooms", roomId);
+      const roomDoc = await getDoc(roomRef);
+
+      if (roomDoc.exists()) {
+        const roomData = roomDoc.data();
+
+        // Verifica si el teacherId ya está en el array teachersId de la sala
+        if (roomData.teachersId && roomData.teachersId.includes(teacherId)) {
+          Alert.alert("Error", "Esta sala ya tiene asignada a esta maestra.");
+          return;
+        }
+
+        // Agrega el teacherId al array teachersId de la sala
+        await updateDoc(roomRef, {
+          teachersId: arrayUnion(teacherId),
+        });
+
+        Alert.alert("Sala asignada exitosamente");
+        console.log("Sala asignadas exitosamente");
+      } else {
+        console.error("El documento de la sala no existe.");
+        Alert.alert("Error", "No se encontró la sala.");
+      }
     } else {
       console.error("El documento del maestro no existe.");
       Alert.alert("Error", "No se encontró el maestro.");
@@ -127,6 +151,13 @@ const removeRoomFromTeacher = async (teacherId, roomId) => {
       rooms: arrayRemove(roomId), // Elimina el roomId del array de rooms
     });
     console.log(`Room ${roomId} eliminado del maestro ${teacherId}`);
+    const roomRef = doc(db, "rooms", roomId);
+
+    // Elimina el teacherId del array de teachersId de la sala
+    await updateDoc(roomRef, {
+      teachersId: arrayRemove(teacherId),
+    });
+    console.log(`Teacher ${teacherId} eliminado de la sala ${roomId}`);
   } catch (error) {
     console.error("Error al eliminar el room del maestro:", error);
     throw error;

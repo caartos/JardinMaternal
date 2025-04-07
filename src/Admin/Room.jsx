@@ -2,7 +2,6 @@ import React from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
-import { useDispatch } from "react-redux";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import buttonStyles from "../../styles/button/buttonStyles";
 import Button from "../../components/Buttons/Button";
@@ -15,7 +14,6 @@ import useRemoveAllChildrenFromRoom from "../../hooks/useRemoveAllChildren";
 
 const Room = ({ route }) => {
   const navigateToScreen = useNavigate();
-  const dispatch = useDispatch();
   const { room } = route.params;
   const { childrenList, setChildrenList } = useGetChildrenByRoomId(room.id);
   const { teachersList, setTeachersList } = useGetTeachersByRoomId(room.id);

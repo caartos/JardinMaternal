@@ -3,7 +3,7 @@ import { FlatList, View, Text } from "react-native";
 import chatStyles from "../../styles/src/chatStyles";
 
 const MessageList = ({ messages, user, flatListRef }) => {
-    
+ 
   return (
     <FlatList
       ref={flatListRef}
@@ -13,7 +13,7 @@ const MessageList = ({ messages, user, flatListRef }) => {
         <View
           style={[
             chatStyles.messageContainer,
-            item.sender === user.uid
+            item.sender === user.id
               ? chatStyles.myMessage
               : chatStyles.theirMessage,
           ]}

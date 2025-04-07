@@ -3,8 +3,11 @@ import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import ChildsWithoutRoomView from "../../components/View/ChildsWithoutRoomView";
 import RoomsView from "../../components/View/RoomsView";
+import CreateRoomButton from "../../components/Buttons/CreateRoomButton";
+import useGetRooms from "../../hooks/useGetRooms";
 
 const RoomAndChild = () => {
+  const { roomsList } = useGetRooms();
 
   return (
     <SafeAreaView>
@@ -14,7 +17,8 @@ const RoomAndChild = () => {
           backButtonDestiny={"AdminMenu"}
         />
         <ChildsWithoutRoomView />
-        <RoomsView />
+        <RoomsView roomsList={roomsList} roomDestiny={"Room"}/>
+        <CreateRoomButton />
       </ScrollView>
     </SafeAreaView>
   );

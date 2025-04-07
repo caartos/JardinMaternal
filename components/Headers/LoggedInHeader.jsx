@@ -3,7 +3,6 @@ import { Text, View } from "react-native";
 import ProfileButton from "../Buttons/ProfileButton";
 import titlesStyles from "../../styles/commons/titlesStyles";
 
-
 const LoggedInHeader = ({title, backButtonDestiny}) => {
   return (
     <View style={titlesStyles.childMenuHeaderStyle}>

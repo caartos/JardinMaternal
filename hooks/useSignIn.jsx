@@ -33,7 +33,7 @@ export const useSignIn = () => {
         dispatch(setChildren(childrenList));
         navigateToScreen("LoggedMenu");
       } else if (userData.userType === "MAESTRO") {
-        navigateToScreen("TeacherMenu");
+        navigateToScreen("TeachersMenu");
       } else {
         Alert.alert("Error", "Tipo de usuario desconocido.");
       }

@@ -6,15 +6,17 @@ import registerStyles from "../styles/src/registerStyles";
 import ChildCommentsView from "../components/View/ChildCommentsView";
 import CircularsView from "../components/View/CircularsView";
 import { useSelector } from "react-redux";
+import useGetRoomById from "../hooks/useGetRoomById";
 
 const ChildMenu = () => {
   const child = useSelector((state) => state.child.selectedChild);
+  const { room } = useGetRoomById(child.roomId);
 
   return (
     <SafeAreaView>
       <View style={registerStyles.registerMainViewTag}>
         <ChildHeader />
-        <ChatButtonsView childName={child.nombre}/>
+        <ChatButtonsView childName={child.nombre} room={room} />
         <ChildCommentsView />
         <CircularsView />
       </View>

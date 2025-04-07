@@ -9,7 +9,7 @@ const generateChatId = (uid1, uid2) => {
 const useChat = (user, chatWith) => {
   const [messages, setMessages] = useState([]);
   const flatListRef = useRef(null);
-
+  console.log(chatWith)
   useEffect(() => {
     if (!user || !chatWith) return;
 

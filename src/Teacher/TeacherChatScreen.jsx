@@ -5,21 +5,19 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { useSelector } from "react-redux";
 import chatStyles from "../../styles/src/chatStyles";
 import MessageList from "../../components/Chat/MessageList";
 import MessageInput from "../../components/Chat/MessageInput";
 import useAdminChat from "../../hooks/useAdminChat";
-import AdminChatHeader from "../../components/Headers/AdminChatHeader";
+import TeacherChatHeader from "../../components/Headers/TeacherChatHeader";
 
-const AdminChatScreen = ({ route }) => {
-  const { chatWith, parentId } = route.params;
-  const admin = useSelector((state) => state.user.user); // La directora como usuario actual
+const TeacherChatScreen = ({ route }) => {
+  const { chatWith, parentId, room } = route.params;
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
-  const adminId = admin.uid; // ID del admin (directora)
-  const sendBy = "directora_";
-  const { messages, sendMessage } = useAdminChat(adminId, parentId, sendBy); // Reutiliza el hook `useChat`
+  const sendBy = `${room.title}_`;
+  const roomId = room.id; // ID de la sala
+  const { messages, sendMessage } = useAdminChat(roomId, parentId, sendBy); // Reutiliza el hook `useChat`
   const handleSend = () => {
     sendMessage(newMessage);
     //sendMessage(newMessage, admin);
@@ -34,8 +32,8 @@ const AdminChatScreen = ({ route }) => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
         <View style={chatStyles.chatMainViewTag}>
-          <AdminChatHeader chatWith={chatWith} />
-          <MessageList messages={messages} user={admin} flatListRef={flatListRef} />
+          <TeacherChatHeader chatWith={chatWith} room={room} />
+          <MessageList messages={messages} user={room} flatListRef={flatListRef} />
           <MessageInput
             newMessage={newMessage}
             setNewMessage={setNewMessage}
@@ -47,4 +45,4 @@ const AdminChatScreen = ({ route }) => {
   );
 };
 
-export default AdminChatScreen;
+export default TeacherChatScreen;

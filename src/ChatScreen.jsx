@@ -32,7 +32,7 @@ const ChatScreen = ({ route }) => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
         <View style={chatStyles.chatMainViewTag}>
-          <ChatHeader chatWith={chatWith} childName={childName} />
+          <ChatHeader chatWith={`Seño de la salita ${chatWith}`} childName={childName} />
           <MessageList messages={messages} user={user} flatListRef={flatListRef} />
           <MessageInput
             newMessage={newMessage}

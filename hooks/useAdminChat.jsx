@@ -3,13 +3,13 @@ import { useEffect, useState, useRef } from "react";
 import { db } from "../config/firebaseConfig";
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 
-const useAdminChat = (user, parentId) => {
+const useAdminChat = (userId, parentId, sendBy) => {
     console.log("parentId", parentId)
   const [messages, setMessages] = useState([]);
   const flatListRef = useRef(null);
 
-  const chatId = `directora_${parentId}`; // Formato del chatId
-  console.log(chatId)
+  const chatId = `${sendBy}${parentId}`; // Formato del chatId
+  
   useEffect(() => {
     
     const q = query(
@@ -26,19 +26,7 @@ const useAdminChat = (user, parentId) => {
             }));
             setMessages(messages);
         });
-    // const unsubscribe = firestore()
-    //   .collection("chats")
-    //   .doc(chatId)
-    //   .collection("messages")
-    //   .orderBy("createdAt", "asc")
-    //   .onSnapshot((snapshot) => {
-    //     const fetchedMessages = snapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       ...doc.data(),
-    //     }));
-    //     setMessages(fetchedMessages);
-    //   });
-
+    
     return () => unsubscribe(); // Limpia la suscripción al desmontar
   }, [parentId]);
 
@@ -47,8 +35,8 @@ const useAdminChat = (user, parentId) => {
   
       await addDoc(collection(db, "chats"), {
         text: newMessage,
-        sender: user.uid,
-        participants: [user.uid, parentId],
+        sender: userId,
+        participants: [userId, parentId],
         chatId,
         timestamp: serverTimestamp(),
       });

@@ -17,10 +17,12 @@ import GenerateCode from "./src/Admin/GenerateCode";
 import RoomAndChild from "./src/Admin/RoomAndChild";
 import CreateRoom from "./src/Admin/CreateRoom";
 import Room from "./src/Admin/Room";
-import Teacher from "./src/Admin/Teachers";
-import { fetchTeachers } from "./config/db/users/users";
 import Teachers from "./src/Admin/Teachers";
 import AdminChatScreen from "./src/Admin/AdminChatScreen";
+import TeachersMenu from "./src/Teacher/TeachersMenu";
+import Rooms from "./src/Teacher/Rooms";
+import SelectedRoom from "./src/Teacher/SeletectedRoom";
+import TeacherChatScreen from "./src/Teacher/TeacherChatScreen";
 
 const Stack = createStackNavigator();
 
@@ -116,6 +118,26 @@ const AppNavigator = () => {
         <Stack.Screen
           name="Teachers"
           component={Teachers}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TeachersMenu"
+          component={TeachersMenu}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Rooms"
+          component={Rooms}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectedRoom"
+          component={SelectedRoom}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TeacherChatScreen"
+          component={TeacherChatScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

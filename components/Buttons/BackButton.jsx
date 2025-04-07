@@ -5,7 +5,7 @@ import useNavigate from "../../utils/navigation";
 
 const BackButton = ({ backButtonDestiny, childName }) => {
   const navigateToScreen = useNavigate();
-
+  console.log("childName", childName);
   return (
     <TouchableOpacity
       onPress={() => navigateToScreen(backButtonDestiny, { childName })}
