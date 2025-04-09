@@ -4,12 +4,16 @@ import Button from "../Buttons/Button";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import buttonStyles from "../../styles/button/buttonStyles";
 import useNavigate from "../../utils/navigation";
+import { useDispatch } from "react-redux";
+import { setSelectedRoom } from "../../reducers/roomReducer";
 
 const RoomsView = ({ roomsList, roomDestiny }) => {
   const navigateToScreen = useNavigate();
+  const dispatch = useDispatch();
 
   const navigateToSelectedRoom = (room) => {
-    navigateToScreen(roomDestiny, { room });
+    dispatch(setSelectedRoom(room));
+    navigateToScreen(roomDestiny);
   };
 
   return (

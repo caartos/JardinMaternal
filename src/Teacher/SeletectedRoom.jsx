@@ -7,19 +7,18 @@ import buttonStyles from "../../styles/button/buttonStyles";
 import Button from "../../components/Buttons/Button";
 import useNavigate from "../../utils/navigation";
 import useGetChildrenByRoomId from "../../hooks/useGetChildrenByRoomId";
+import { useSelector } from "react-redux";
 
-const SelectedRoom = ({ route }) => {
+const SelectedRoom = () => {
   const navigateToScreen = useNavigate();
-  const { room } = route.params;
-  const {childName} = route.params; 
-  console.log("SELECTEDROOM", room);
+  const room = useSelector((state) => state.room.selectedRoom);
   const { childrenList } = useGetChildrenByRoomId(room.id);
   const handleChatWithChild = (chatWith, parentId) => {
     navigateToScreen("TeacherChatScreen", { chatWith, parentId, room });
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={registerStyles.registerMainViewTag}>
         <LoggedOutHeader title={room.title} backButtonDestiny={"Rooms"} />
         <Text style={titlesStyles.createCircularTitle}>

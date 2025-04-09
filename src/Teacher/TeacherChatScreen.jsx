@@ -25,14 +25,14 @@ const TeacherChatScreen = ({ route }) => {
   };
   
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
         <View style={chatStyles.chatMainViewTag}>
-          <TeacherChatHeader chatWith={chatWith} room={room} />
+          <TeacherChatHeader chatWith={chatWith} room={room}/>
           <MessageList messages={messages} user={room} flatListRef={flatListRef} />
           <MessageInput
             newMessage={newMessage}
