@@ -17,6 +17,8 @@ const useCreateCircular = () => {
         circular: circular.circular,
         nombre: loggedUser.nombre,
         cargo: cargo,
+        idSender: loggedUser.uid,
+        nameSender: loggedUser.nombre,
         destinatario: destinatario,
       });
 

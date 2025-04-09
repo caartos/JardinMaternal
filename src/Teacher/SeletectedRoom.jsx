@@ -13,6 +13,11 @@ const SelectedRoom = () => {
   const navigateToScreen = useNavigate();
   const room = useSelector((state) => state.room.selectedRoom);
   const { childrenList } = useGetChildrenByRoomId(room.id);
+
+  const navigateToCreateCircular = () => {
+    navigateToScreen("CreateCircular", backButtonDestiny="SelectedRoom");
+  };
+
   const handleChatWithChild = (chatWith, parentId) => {
     navigateToScreen("TeacherChatScreen", { chatWith, parentId, room });
   };
@@ -24,6 +29,12 @@ const SelectedRoom = () => {
         <Text style={titlesStyles.createCircularTitle}>
           Salita de {room.age}
         </Text>
+        <Button
+            buttonRegularStyle={buttonStyles.createCircularButtonStyle}
+            titleStyle={buttonStyles.createCircularTextButtonStyle}
+            title={"Mandar una circular"}
+            onPress={navigateToCreateCircular}
+          />
         <Text style={titlesStyles.childList}>Alumnos:</Text>
         {childrenList.length > 0 ? (
           <View>

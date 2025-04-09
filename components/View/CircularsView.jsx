@@ -32,7 +32,7 @@ const CircularsView = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={{ marginBottom: 25 }}>
-              <Text style={{ paddingVertical: 3 }}>Directora:</Text>
+              <Text style={{ paddingVertical: 3 }}>{item.cargo} {item.nameSender}:</Text>
               <Text style={{ paddingVertical: 3 }}>
                 {new Date(item.timestamp.seconds * 1000).toLocaleDateString()}{" "}
                 {new Date(item.timestamp.seconds * 1000).toLocaleTimeString()}

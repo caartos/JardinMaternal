@@ -11,7 +11,8 @@ import useNavigate from "../../utils/navigation";
 import { useSelector } from "react-redux";
 import useCreateCircular from "../../hooks/useCreateCircular";
 
-const CreateCircular = () => {
+const CreateCircular = ({route}) => {
+  const backçkButtonDestiny = route.params.backButtonDestiny
   const loggedUser = useSelector((state) => state.user.user);
   const navigateToScreen = useNavigate()
   const { createCircularHandler } = useCreateCircular();
@@ -40,7 +41,7 @@ const CreateCircular = () => {
       <ScrollView style={registerStyles.registerMainViewTag}>
         <AdminOptionsHeader
           title={"Circulares"}
-          backButtonDestiny={"AdminMenu"}
+          backButtonDestiny={backButtonDestiny}
         />
         <Text style={titlesStyles.createCircularTitle}>
           Crear una nueva circular

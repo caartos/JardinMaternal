@@ -10,7 +10,7 @@ const AdminMenu = () => {
   const navigateToScreen = useNavigate()
 
   const navigateToCreateCircular = () => {
-    navigateToScreen("CreateCircular");
+    navigateToScreen("CreateCircular", backButtonDestiny = "AdminMenu");
   };
 
   const navigateToGenerateCode = () => {
