@@ -8,6 +8,7 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
@@ -39,6 +40,26 @@ const fetchCirculars = async () => {
   }
 };
 
+const fetchCircularsByTitle = async (title) => {
+  console.log(title)
+  try {
+    const q = query(
+      collection(db, "circulares"),
+      where("destinatario", "==", title), // Filtra por el título
+      orderBy("timestamp", "desc") // Ordena por timestamp
+    );
+    const querySnapshot = await getDocs(q);
+    const circularsList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return circularsList;
+  } catch (error) {
+    console.error("Error al obtener las circulares por título:", error);
+    throw error;
+  }
+};
+
 const deleteCircular = async (id) => {
   try {
     await deleteDoc(doc(db, "circulares", id));
@@ -57,4 +78,4 @@ const updateCircular = async (id, updatedData) => {
   }
 };
 
-export { createCircular, fetchCirculars, deleteCircular, updateCircular };
+export { createCircular, fetchCirculars, deleteCircular, updateCircular, fetchCircularsByTitle };

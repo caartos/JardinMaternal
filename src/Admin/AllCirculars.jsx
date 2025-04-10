@@ -8,9 +8,17 @@ import useDeleteCircular from "../../hooks/useDeleteCircular";
 import useUpdateCircular from "../../hooks/useUpdateCircular";
 import Title from "../../components/Title/Title";
 import CircularsEditingView from "../../components/View/CircularsEditingView";
+import { useSelector } from "react-redux";
+import useFetchCircularsByTitle from "../../hooks/useFetchCircularsByTitle";
 
-const AllCirculars = () => {
-  const { circulars, setCirculars } = useFetchCirculars();
+const AllCirculars = ({ route }) => {
+  const backButtonDestiny = route.params;
+  const loggedUser = useSelector((state) => state.user.user);
+  const selectedRoomTitle = useSelector(
+    (state) => state.room.selectedRoom?.title
+  );
+  const room = loggedUser.rooms ? selectedRoomTitle : null;
+  const { circulars, setCirculars } = room? useFetchCircularsByTitle(room) : useFetchCirculars();
   const { handleDeleteCircular } = useDeleteCircular();
   const { handleSaveCircular } = useUpdateCircular();
   const [editingCircular, setEditingCircular] = useState(null);
@@ -50,7 +58,7 @@ const AllCirculars = () => {
       <ScrollView style={registerStyles.registerMainViewTag}>
         <AdminOptionsHeader
           title={"Circulares"}
-          backButtonDestiny={"CreateCircular"}
+          backButtonDestiny={backButtonDestiny}
         />
         <Title
           titleStyle={titlesStyles.createCircularTitle}
@@ -61,7 +69,9 @@ const AllCirculars = () => {
           editingCircular={editingCircular}
           handleEditCircular={handleEditCircular}
           handleInputChange={handleInputChange}
-          handleSaveCircular={(circular) => handleSaveCircular(circular, setCirculars, setEditingCircular)}
+          handleSaveCircular={(circular) =>
+            handleSaveCircular(circular, setCirculars, setEditingCircular)
+          }
           setEditingCircular={setEditingCircular}
           confirmDeleteCircular={confirmDeleteCircular}
         />

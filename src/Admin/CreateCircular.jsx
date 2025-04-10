@@ -12,8 +12,10 @@ import { useSelector } from "react-redux";
 import useCreateCircular from "../../hooks/useCreateCircular";
 
 const CreateCircular = ({route}) => {
-  const backçkButtonDestiny = route.params.backButtonDestiny
+  const backButtonDestiny = route.params
   const loggedUser = useSelector((state) => state.user.user);
+  const selectedRoomTitle = useSelector((state) => state.room.selectedRoom?.title);
+  const room = loggedUser.rooms ? selectedRoomTitle : null;
   const navigateToScreen = useNavigate()
   const { createCircularHandler } = useCreateCircular();
   const [circular, setCircular] = useState({
@@ -21,8 +23,9 @@ const CreateCircular = ({route}) => {
     circular: "",
   });
 
+
   const navigateToAllCirculars = () => {
-    navigateToScreen("AllCirculars");
+    navigateToScreen("AllCirculars", backButtonDestiny);
   };
 
   const handleInputChange = (name, value) => {
@@ -33,7 +36,7 @@ const CreateCircular = ({route}) => {
   };
 
   const handleCreateCircular = async () => {
-    await createCircularHandler(circular, loggedUser, "Aula", setCircular);
+    await createCircularHandler(circular, loggedUser, room, setCircular);
   };
 
   return (

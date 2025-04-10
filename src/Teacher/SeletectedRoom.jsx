@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, Touchable, TouchableOpacity, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import titlesStyles from "../../styles/commons/titlesStyles";
@@ -49,9 +49,16 @@ const SelectedRoom = () => {
                   alignItems: "center",
                 }}
               >
+              <TouchableOpacity
+                onPress={() =>
+                  navigateToScreen("ChildDaily", {
+                    user: child
+                  })
+                }>
                 <Text style={titlesStyles.childAndRoomText}>
                   {child.nombre} {child.apellido}
                 </Text>
+              </TouchableOpacity>
                 <View
                   style={{
                     flexDirection: "row",
