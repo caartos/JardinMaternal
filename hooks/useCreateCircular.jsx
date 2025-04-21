@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { createCircular } from "../config/db/circular/createCircular";
 
 const useCreateCircular = () => {
-  const createCircularHandler = async (circular, loggedUser, aula, setCircular) => {
+  const createCircularHandler = async (circular, loggedUser, aula, idAula, setCircular) => {
     if (!circular.titulo || !circular.circular) {
       Alert.alert("Error", "Por favor, complete ambos campos.");
       return;
@@ -11,6 +11,7 @@ const useCreateCircular = () => {
     try {
       const cargo = loggedUser.userType === "ADMIN" ? "Directora" : "Seño";
       const destinatario = loggedUser.userType === "ADMIN" ? "Todos" : aula;
+      const idDestinatario = loggedUser.userType === "ADMIN" ? "Todos" : idAula;
 
       await createCircular({
         titulo: circular.titulo,
@@ -20,6 +21,7 @@ const useCreateCircular = () => {
         idSender: loggedUser.uid,
         nameSender: loggedUser.nombre,
         destinatario: destinatario,
+        idDestinatario: idDestinatario,
       });
 
       Alert.alert("Éxito", "Circular creada exitosamente.");

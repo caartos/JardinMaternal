@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, Text, Touchable, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import titlesStyles from "../../styles/commons/titlesStyles";
@@ -12,7 +12,17 @@ import { useSelector } from "react-redux";
 const SelectedRoom = () => {
   const navigateToScreen = useNavigate();
   const room = useSelector((state) => state.room.selectedRoom);
-  const { childrenList } = useGetChildrenByRoomId(room.id);
+  const { childrenList } = useGetChildrenByRoomId(room?.id || "");
+
+  if (!room) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={titlesStyles.childAndRoomText}>
+          Error: No se encontró la información de la sala.
+        </Text>
+      </SafeAreaView>
+    );
+  }
 
   const navigateToCreateCircular = () => {
     navigateToScreen("CreateCircular", backButtonDestiny="SelectedRoom");
@@ -23,7 +33,7 @@ const SelectedRoom = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, marginTop: 40 }}>
       <ScrollView style={registerStyles.registerMainViewTag}>
         <LoggedOutHeader title={room.title} backButtonDestiny={"Rooms"} />
         <Text style={titlesStyles.createCircularTitle}>

@@ -6,7 +6,6 @@ import useNavigate from "../../utils/navigation";
 const BackButton = ({ backButtonDestiny, childName }) => {
   const navigateToScreen = useNavigate();
   const goBack = () => {
-    //
     navigateToScreen(backButtonDestiny, { childName })
   }
   return (

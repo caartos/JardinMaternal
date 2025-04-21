@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 //import circulars from "../../config/seed/circulares";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import useFetchCirculars from "../../hooks/useFetchCirculars";
+import useFetchCircularsByRoomOrAll from "../../hooks/useFetchCircularsByRoomOrAll";
 
-const CircularsView = () => {
-  const { circulars } = useFetchCirculars();
+const CircularsView = ({childRoomId}) => {
+  console.log("childRoomId", childRoomId)
+  const { circulars } = useFetchCircularsByRoomOrAll(childRoomId);
   const [visibleCirculars, setVisibleCirculars] = useState(5);
 
   const sortedCirculars = circulars.sort((a, b) => {

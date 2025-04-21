@@ -1,8 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
-import childComments from "../../config/seed/childComments";
 
-const ChildCommentsView = () => {
+const ChildCommentsView = ({ childComments={} }) => {
   return (
     <View
       style={{
@@ -18,16 +17,16 @@ const ChildCommentsView = () => {
         Comentarios:
       </Text>
       <Text style={{ paddingLeft: 15, padding: 5, fontSize: 15 }}>
-        Siesta: {childComments.siesta}
+        Siesta: {childComments.siesta || ""}
       </Text>
       <Text style={{ paddingLeft: 15, padding: 5, fontSize: 15 }}>
-        Baño: {childComments.necesidades}💩
+      Baño: {childComments.baño ? `${childComments.baño} 💩` : ""}
       </Text>
       <Text style={{ paddingLeft: 15, padding: 5, fontSize: 15 }}>
-        Merienda: {childComments.merienda}
+        Merienda: {childComments.merienda || ""}
       </Text>
       <Text style={{ paddingLeft: 15, padding: 5, fontSize: 15 }}>
-        Comentarios: {childComments.comentarios}
+        Comentarios: {childComments.comentarios || ""}
       </Text>
     </View>
   );

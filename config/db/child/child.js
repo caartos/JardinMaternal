@@ -8,6 +8,9 @@ import {
   doc,
   updateDoc,
   writeBatch,
+  Timestamp,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
@@ -139,4 +142,61 @@ const removeAllChildrenFromRoom = async (roomId) => {
   }
 };
 
-export { createChildInDB, fetchUserChildren, updateChildInDB, fetchChildrenWithoutRoom, assignRoomToChild, fetchChildrenByRoomId, removeChildFromRoom, removeAllChildrenFromRoom };
+// Función para crear o actualizar observaciones con expiración
+const saveChildObservations = async (childId, observaciones) => {
+  try {
+    // Asegúrate de que `expirationTime` sea un objeto Date
+    const expirationTime = Timestamp.fromDate(new Date(new Date().setHours(24, 0, 0, 0))); // Medianoche de hoy
+
+    const childRef = doc(db, "childs", childId); // Referencia al documento del niño
+    await setDoc(
+      childRef,
+      {
+        observaciones: {
+          ...observaciones,
+          expiresAt: expirationTime, // Agrega el tiempo de expiración
+        },
+      },
+      { merge: true } // Combina con los datos existentes
+    );
+
+    console.log("Observaciones guardadas exitosamente para el niño:", childId);
+  } catch (error) {
+    console.error("Error al guardar las observaciones:", error);
+    throw error; // Lanza el error para que pueda ser manejado por el componente que llama esta función
+  }
+};
+
+// Función para obtener observaciones y verificar expiración
+const getChildObservations = async (childId) => {
+  try {
+    const childRef = doc(db, "childs", childId);
+    const childDoc = await getDoc(childRef);
+
+    if (childDoc.exists()) {
+      const data = childDoc.data();
+      const now = Timestamp.now();
+
+      // Verifica si las observaciones han expirado
+      if (data.observaciones?.expiresAt && data.observaciones.expiresAt.toMillis() < now.toMillis()) {
+        console.log("Las observaciones han expirado para el niño:", childId);
+        return {
+          siesta: "",
+          baño: "",
+          merienda: "",
+          comentarios: "",
+        };
+      }
+
+      return data.observaciones || {};
+    } else {
+      console.log("No se encontró el documento del niño:", childId);
+      return {};
+    }
+  } catch (error) {
+    console.error("Error al obtener las observaciones:", error);
+    throw error; // Lanza el error para que pueda ser manejado por el componente que llama esta función
+  }
+};
+
+export { createChildInDB, fetchUserChildren, updateChildInDB, fetchChildrenWithoutRoom, assignRoomToChild, fetchChildrenByRoomId, removeChildFromRoom, removeAllChildrenFromRoom, saveChildObservations, getChildObservations };

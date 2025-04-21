@@ -14,15 +14,16 @@ import useCreateCircular from "../../hooks/useCreateCircular";
 const CreateCircular = ({route}) => {
   const backButtonDestiny = route.params
   const loggedUser = useSelector((state) => state.user.user);
-  const selectedRoomTitle = useSelector((state) => state.room.selectedRoom?.title);
-  const room = loggedUser.rooms ? selectedRoomTitle : null;
+  const selectedRoom = useSelector((state) => state.room.selectedRoom);
+  console.log("selectedRoom", selectedRoom)
+  const room = loggedUser.rooms ? selectedRoom.title : null;
+  const idRoom = loggedUser.rooms ? selectedRoom.id : null;
   const navigateToScreen = useNavigate()
   const { createCircularHandler } = useCreateCircular();
   const [circular, setCircular] = useState({
     titulo: "",
     circular: "",
   });
-
 
   const navigateToAllCirculars = () => {
     navigateToScreen("AllCirculars", backButtonDestiny);
@@ -36,7 +37,7 @@ const CreateCircular = ({route}) => {
   };
 
   const handleCreateCircular = async () => {
-    await createCircularHandler(circular, loggedUser, room, setCircular);
+    await createCircularHandler(circular, loggedUser, room, idRoom, setCircular);
   };
 
   return (

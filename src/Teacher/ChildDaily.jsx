@@ -1,25 +1,27 @@
-import React, { useState } from "react";
-import { ScrollView, SafeAreaView, Text } from "react-native";
+import React from "react";
+import { ScrollView, SafeAreaView, Text, Alert } from "react-native";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
+import buttonStyles from "../../styles/button/buttonStyles";
 import inputStyles from "../../styles/input/inputStyles";
 import Input from "../../components/Input/Input";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import registerStyles from "../../styles/src/registerStyles";
+import Button from "../../components/Buttons/Button";
+import useNavigate from "../../utils/navigation";
+import useChildObservations from "../../hooks/useChildObservations";
+
 
 const ChildDaily = ({ route }) => {
   const child = route.params.user;
-  const [observaciones, setObservaciones] = useState({
-    siesta: "",
-    baño: "",
-    merienda: "",
-    comentarios: "",
-  });
+  const navigateToScreen = useNavigate()
+  const { observaciones, handleInputChange, saveObservations } = useChildObservations(
+    child.id,
+    child.observaciones
+  );
 
-  const handleInputChange = (name, value) => {
-    setObservaciones({
-      ...observaciones,
-      [name]: value,
-    });
+  const handleSaveObservations = async () => {
+    await saveObservations();
+    navigateToScreen("SelectedRoom");
   };
 
   return (
@@ -55,6 +57,12 @@ const ChildDaily = ({ route }) => {
           placeholder="Comentarios"
           value={observaciones.comentarios}
           onChangeText={(text) => handleInputChange("comentarios", text)}
+        />
+        <Button
+          buttonRegularStyle={buttonStyles.createCircularButtonStyle}
+          titleStyle={buttonStyles.createCircularTextButtonStyle}
+          title="Crear observaciones"
+          onPress={handleSaveObservations}
         />
       </ScrollView>
     </SafeAreaView>

@@ -40,6 +40,25 @@ const fetchCirculars = async () => {
   }
 };
 
+const fetchCircularsByRoomOrAll = async (childRoomId) => {
+  try {
+    const q = query(
+      collection(db, "circulares"),
+      where("idDestinatario", "in", ["Todos", childRoomId]), // Filtra por "Todos" o el childRoomId
+      orderBy("timestamp", "desc") // Ordena por timestamp
+    );
+    const querySnapshot = await getDocs(q);
+    const circularsList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return circularsList;
+  } catch (error) {
+    console.error("Error al obtener las circulares:", error);
+    throw error;
+  }
+};
+
 const fetchCircularsByTitle = async (title) => {
   console.log(title)
   try {
@@ -78,4 +97,4 @@ const updateCircular = async (id, updatedData) => {
   }
 };
 
-export { createCircular, fetchCirculars, deleteCircular, updateCircular, fetchCircularsByTitle };
+export { createCircular, fetchCirculars, deleteCircular, updateCircular, fetchCircularsByTitle, fetchCircularsByRoomOrAll };

@@ -10,6 +10,7 @@ import useGetRoomById from "../hooks/useGetRoomById";
 
 const ChildMenu = () => {
   const child = useSelector((state) => state.child.selectedChild);
+  console.log(child)
   const { room } = useGetRoomById(child.roomId);
 
   return (
@@ -17,8 +18,8 @@ const ChildMenu = () => {
       <View style={registerStyles.registerMainViewTag}>
         <ChildHeader />
         <ChatButtonsView childName={child.nombre} room={room} />
-        <ChildCommentsView />
-        <CircularsView />
+        <ChildCommentsView childComments={child.observaciones}/>
+        <CircularsView childRoomId={child.roomId}/>
       </View>
     </SafeAreaView>
   );
