@@ -52,15 +52,30 @@ const buttonStyles = StyleSheet.create({
   },
   chatButtonStyle: {
     width: "45%",
-    height: 140,
-    borderRadius: 30,
+    height: 60,
+    borderRadius: 10,
     backgroundColor: "#e8aca0",
     alignItems: "center",
     justifyContent: "center",
   },
+  photosAndVideosButtonStyle: {
+    width: "45%",
+    height: 60,
+    borderRadius: 10,
+    backgroundColor: "#d1e7dd",
+    alignSelf: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
   chatButtonText: {
     color: "#fff3f1",
     fontWeight: "bold",
+  },
+  photosAndVideosButtonTextStyle: {
+    color: "#fff3f1",
+    color: "#6B7672",
+    fontWeight: "bold",
+    alignSelf: "center",
   },
   sendChatButtonStyle: {
     backgroundColor: "#ffe9e4",
@@ -74,13 +89,13 @@ const buttonStyles = StyleSheet.create({
     color: "#e8aca0",
   },
   adminMenuButtonStyle: {
-    width: "45%",
-    height: 140,
-    borderRadius: 30,
+    width: "50%",
+    height: 80,
+    borderRadius: 10,
     backgroundColor: "#d1e7dd",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20
+    marginBottom: 20,
   },
   adminTextButtonStyle: {
     color: "#6B7672",
@@ -88,8 +103,8 @@ const buttonStyles = StyleSheet.create({
   },
   createCircularButtonStyle: {
     width: "45%",
-    height: 70,
-    borderRadius: 30,
+    height: 60,
+    borderRadius: 10,
     backgroundColor: "#e8aca0",
     alignItems: "center",
     justifyContent: "center",
@@ -102,8 +117,8 @@ const buttonStyles = StyleSheet.create({
   },
   allCircularsButtonStyle: {
     width: "50%",
-    height: 90,
-    borderRadius: 30,
+    height: 70,
+    borderRadius: 10,
     backgroundColor: "#d1e7dd",
     alignItems: "center",
     justifyContent: "center",
@@ -116,7 +131,7 @@ const buttonStyles = StyleSheet.create({
     height: 30,
     width: 30,
     justifyContent: "center",
-    alignContent: "center"
+    alignContent: "center",
   },
   deleteTeacherButton: {
     backgroundColor: "#e74c3c",
@@ -124,7 +139,7 @@ const buttonStyles = StyleSheet.create({
     height: 30,
     width: 30,
     justifyContent: "center",
-    alignContent: "center"
+    alignContent: "center",
   },
   chatRoomButton: {
     borderRadius: 10,
@@ -133,7 +148,7 @@ const buttonStyles = StyleSheet.create({
     width: 60,
     justifyContent: "center",
     alignItems: "center",
-    margin: 10
+    margin: 10,
   },
   chatRoomButtonText: {
     color: "#fff3f1",
@@ -146,7 +161,7 @@ const buttonStyles = StyleSheet.create({
     width: 60,
     justifyContent: "center",
     alignItems: "center",
-    margin: 10
+    margin: 10,
   },
   removeChildButtonText: {
     color: "#fff",
@@ -165,17 +180,17 @@ const buttonStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   roomsButtonView: {
-    marginVertical: 10
+    marginVertical: 10,
   },
   createRoomButtonView: {
     alignItems: "center",
-    paddingTop: 20
+    paddingTop: 20,
   },
   modalSelectorsView: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
 });
 
 export default buttonStyles;

@@ -7,10 +7,13 @@ import Button from "../components/Buttons/Button";
 import buttonStyles from "../styles/button/buttonStyles";
 import registerStyles from "../styles/src/registerStyles";
 import ChildMenuButton from "../components/Buttons/ChildMenuButton";
+import useClearSelectedRoom from "../hooks/useClearSelectedRoom";
 
 const LoggedMenu = () => {
   const children = useSelector((state) => state.child.children);
   const navigateToScreen = useNavigate();
+  useClearSelectedRoom();
+  
   const handleCreateChildProfile = () => {
     navigateToScreen("CreateChildProfile");
   };

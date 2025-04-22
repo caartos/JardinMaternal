@@ -24,6 +24,8 @@ import Rooms from "./src/Teacher/Rooms";
 import SelectedRoom from "./src/Teacher/SeletectedRoom";
 import TeacherChatScreen from "./src/Teacher/TeacherChatScreen";
 import ChildDaily from "./src/Teacher/ChildDaily";
+import PhotosAndVideos from "./src/Teacher/PhotosAndVideos";
+
 
 const Stack = createStackNavigator();
 
@@ -144,6 +146,11 @@ const AppNavigator = () => {
         <Stack.Screen
           name="ChildDaily"
           component={ChildDaily}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PhotosAndVideos"
+          component={PhotosAndVideos}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -1,5 +1,11 @@
 import React from "react";
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import registerStyles from "../../styles/src/registerStyles";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import titlesStyles from "../../styles/commons/titlesStyles";
@@ -16,7 +22,9 @@ const SelectedRoom = () => {
 
   if (!room) {
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <SafeAreaView
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
         <Text style={titlesStyles.childAndRoomText}>
           Error: No se encontró la información de la sala.
         </Text>
@@ -25,12 +33,18 @@ const SelectedRoom = () => {
   }
 
   const navigateToCreateCircular = () => {
-    navigateToScreen("CreateCircular", backButtonDestiny="SelectedRoom");
+    navigateToScreen("CreateCircular", (backButtonDestiny = "SelectedRoom"));
   };
 
   const handleChatWithChild = (chatWith, parentId) => {
     navigateToScreen("TeacherChatScreen", { chatWith, parentId, room });
   };
+
+  const handlePhotosAndVideos = () => {
+    navigateToScreen("PhotosAndVideos", { backButtonDestiny: "SelectedRoom" });
+  };
+
+
 
   return (
     <SafeAreaView style={{ flex: 1, marginTop: 40 }}>
@@ -40,11 +54,17 @@ const SelectedRoom = () => {
           Salita de {room.age}
         </Text>
         <Button
-            buttonRegularStyle={buttonStyles.createCircularButtonStyle}
-            titleStyle={buttonStyles.createCircularTextButtonStyle}
-            title={"Mandar una circular"}
-            onPress={navigateToCreateCircular}
-          />
+          buttonRegularStyle={buttonStyles.createCircularButtonStyle}
+          titleStyle={buttonStyles.createCircularTextButtonStyle}
+          title={"Mandar una circular"}
+          onPress={navigateToCreateCircular}
+        />
+        <Button
+          buttonRegularStyle={buttonStyles.createCircularButtonStyle}
+          titleStyle={buttonStyles.createCircularTextButtonStyle}
+          title={"Fotos y videos"}
+          onPress={handlePhotosAndVideos}
+        />
         <Text style={titlesStyles.childList}>Alumnos:</Text>
         {childrenList.length > 0 ? (
           <View>
@@ -59,16 +79,17 @@ const SelectedRoom = () => {
                   alignItems: "center",
                 }}
               >
-              <TouchableOpacity
-                onPress={() =>
-                  navigateToScreen("ChildDaily", {
-                    user: child
-                  })
-                }>
-                <Text style={titlesStyles.childAndRoomText}>
-                  {child.nombre} {child.apellido}
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigateToScreen("ChildDaily", {
+                      user: child,
+                    })
+                  }
+                >
+                  <Text style={titlesStyles.childAndRoomText}>
+                    {child.nombre} {child.apellido}
+                  </Text>
+                </TouchableOpacity>
                 <View
                   style={{
                     flexDirection: "row",

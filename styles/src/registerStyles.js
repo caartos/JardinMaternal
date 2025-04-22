@@ -3,8 +3,12 @@ import { StyleSheet } from "react-native";
 const registerStyles = StyleSheet.create({
   registerMainViewTag: {
     backgroundColor: "#ffe9e4",
-    height: "100%",
+    height:"100%",
     paddingBottom: 220,
+  },
+  photosAndVideosMainViewTag: {
+    backgroundColor: "#ffe9e4",
+    flex: 1,
   },
   verificationCodeMainViewTag: {
     alignItems: "center",

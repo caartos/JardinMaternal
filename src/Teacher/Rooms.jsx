@@ -1,20 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import registerStyles from "../../styles/src/registerStyles";
 import useGetTeachersRooms from "../../hooks/useGetTeachersRooms";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import RoomsView from "../../components/View/RoomsView";
-import { clearSelectedRoom } from "../../reducers/roomReducer";
+import useClearSelectedRoom from "../../hooks/useClearSelectedRoom";
 
 const Rooms = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const { roomsList } = useGetTeachersRooms(user.uid);
 
-  useEffect(() => {
-    dispatch(clearSelectedRoom());
-  }, [dispatch]);
+  useClearSelectedRoom();
 
   return (
     <SafeAreaView style={{ flex: 1, marginTop: 40 }}>

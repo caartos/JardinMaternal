@@ -11,10 +11,13 @@ import useGetTeachersByRoomId from "../../hooks/useGetTeachersByRoomId";
 import useRemoveTeacher from "../../hooks/useRemoveTeacher";
 import useRemoveChildFromRoom from "../../hooks/useRemoveChildFromRoom";
 import useRemoveAllChildrenFromRoom from "../../hooks/useRemoveAllChildren";
+import { useSelector } from "react-redux";
 
-const Room = ({ route }) => {
+const Room = () => {
   const navigateToScreen = useNavigate();
-  const { room } = route.params;
+
+  const room = useSelector((state) => state.room.selectedRoom);
+  
   const { childrenList, setChildrenList } = useGetChildrenByRoomId(room.id);
   const { teachersList, setTeachersList } = useGetTeachersByRoomId(room.id);
 

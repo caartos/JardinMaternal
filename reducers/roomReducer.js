@@ -12,9 +12,19 @@ const roomSlice = createSlice({
     clearSelectedRoom: (state) => {
       state.selectedRoom = null; // Limpia la sala seleccionada
     },
+    updateSelectedRoom: (state, action) => {
+      if (state.selectedRoom) {
+        // Actualiza solo los campos proporcionados en el payload
+        state.selectedRoom = {
+          ...state.selectedRoom,
+          ...action.payload,
+        };
+      }
+    },
   },
+  
 });
 
-export const { setSelectedRoom, clearSelectedRoom } = roomSlice.actions;
+export const { setSelectedRoom, clearSelectedRoom,updateSelectedRoom } = roomSlice.actions;
 
 export default roomSlice.reducer;

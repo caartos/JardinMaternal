@@ -5,7 +5,7 @@ import { updateUser } from "../actions/userActions";
 import { updateProfile } from "../config/auth";
 import useNavigate from "../utils/navigation";
 
-const useUpdateUser = (loggedUser) => {
+const useUpdateUser = (loggedUser, backButtonDestiny) => {
   const navigateToScreen = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const useUpdateUser = (loggedUser) => {
       const updatedUser = await updateProfile(loggedUser, user);
       dispatch(updateUser(updatedUser));
       Alert.alert("Perfil actualizado exitosamente.");
-      navigateToScreen("LoggedMenu");
+      navigateToScreen(backButtonDestiny);
     } catch (error) {
       console.error("Error al guardar perfil:", error);
       Alert.alert("Error", error.message);

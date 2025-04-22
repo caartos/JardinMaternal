@@ -13,8 +13,8 @@ import useUpdateUser from "../hooks/useUpdateUser";
 
 const Profile = ({route}) => {
   const loggedUser = useSelector((state) => state.user.user);
-  const { handleUpdateUser, loading } = useUpdateUser(loggedUser);
   const {title, backButtonDestiny} = route.params
+  const { handleUpdateUser, loading } = useUpdateUser(loggedUser, backButtonDestiny);
 
   const [user, setUser] = useState({
     uid: loggedUser.uid,

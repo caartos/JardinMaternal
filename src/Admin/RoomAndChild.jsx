@@ -5,9 +5,11 @@ import ChildsWithoutRoomView from "../../components/View/ChildsWithoutRoomView";
 import RoomsView from "../../components/View/RoomsView";
 import CreateRoomButton from "../../components/Buttons/CreateRoomButton";
 import useGetRooms from "../../hooks/useGetRooms";
+import useClearSelectedRoom from "../../hooks/useClearSelectedRoom";
 
 const RoomAndChild = () => {
   const { roomsList } = useGetRooms();
+  useClearSelectedRoom();
 
   return (
     <SafeAreaView>
