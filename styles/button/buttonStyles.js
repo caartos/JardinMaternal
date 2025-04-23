@@ -191,6 +191,12 @@ const buttonStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  multimediaButtonStyle: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default buttonStyles;

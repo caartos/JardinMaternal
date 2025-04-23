@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-  Image,
-  Modal,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React from "react";
+import { SafeAreaView, View } from "react-native";
 import ChildHeader from "../components/Headers/ChildHeader";
 import ChatButtonsView from "../components/View/ChatButtonsView";
 import registerStyles from "../styles/src/registerStyles";
@@ -22,24 +15,12 @@ import { setSelectedRoom } from "../reducers/roomReducer";
 const ChildMenu = () => {
   const child = useSelector((state) => state.child.selectedChild);
   const dispatch = useDispatch();
-  const navigateToScreen = useNavigate()
-  const [selectedImage, setSelectedImage] = useState(null); // Para la imagen en tamaño completo
-  const [isModalVisible, setIsModalVisible] = useState(false); // Controla el modal
+  const navigateToScreen = useNavigate();
   const { room } = useGetRoomById(child.roomId);
-  
-  const handleImagePress = (imageUri) => {
-    setSelectedImage(imageUri);
-    setIsModalVisible(true);
-  };
 
   const navigateToPhotosAndVideos = () => {
     dispatch(setSelectedRoom(room));
     navigateToScreen("PhotosAndVideos", { backButtonDestiny: "ChildMenu" });
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
-    setSelectedImage(null);
   };
 
   return (
@@ -55,7 +36,6 @@ const ChildMenu = () => {
         />
         <ChildCommentsView childComments={child.observaciones} />
         <CircularsView childRoomId={child.roomId} />
-        
       </View>
     </SafeAreaView>
   );
