@@ -63,8 +63,8 @@ exports.cleanExpiredObservations = onSchedule("0 0 * * *", async () => {
       // Verifica si las observaciones han expirado
       if (
         data.observaciones &&
-        data.observaciones.expiresAt &&
-        data.observaciones.expiresAt.toMillis() < now.toMillis()
+        data.observaciones.createdAt &&
+        data.observaciones.createdAt.toMillis() < now.toMillis()
       ) {
         const childRef = db.collection("childs").doc(doc.id);
         // Limpia las observaciones
@@ -74,7 +74,7 @@ exports.cleanExpiredObservations = onSchedule("0 0 * * *", async () => {
             baño: "",
             merienda: "",
             comentarios: "",
-            expiresAt: null,
+            createdAt: null,
           },
         });
       }

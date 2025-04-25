@@ -146,15 +146,15 @@ const removeAllChildrenFromRoom = async (roomId) => {
 const saveChildObservations = async (childId, observaciones) => {
   try {
     // Asegúrate de que `expirationTime` sea un objeto Date
-    const expirationTime = Timestamp.fromDate(new Date(new Date().setHours(24, 0, 0, 0))); // Medianoche de hoy
-
+    const now = Timestamp.fromDate(new Date());
+    console.log("Fecha y hora actual:", now);
     const childRef = doc(db, "childs", childId); // Referencia al documento del niño
     await setDoc(
       childRef,
       {
         observaciones: {
           ...observaciones,
-          expiresAt: expirationTime, // Agrega el tiempo de expiración
+          createdAt: now, // Agrega el tiempo de expiración
         },
       },
       { merge: true } // Combina con los datos existentes
