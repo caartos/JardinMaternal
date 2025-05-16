@@ -6,6 +6,8 @@ import { setUser } from "../actions/userActions";
 import useNavigate from "../utils/navigation";
 import { fetchUserChildren } from "../config/db/child/child";
 import { setChildren } from "../actions/childActions";
+import { setNotifications } from "../actions/notificationActions";
+import { fetchUserNotifications } from "../config/db/users/users";
 
 export const useSignIn = () => {
   const navigateToScreen = useNavigate();
@@ -31,6 +33,8 @@ export const useSignIn = () => {
       } else if (userData.userType === "PADRE") {
         const childrenList = await fetchUserChildren(userCredential.user.uid);
         dispatch(setChildren(childrenList));
+        const notifications = await fetchUserNotifications(userCredential.user.uid);
+        dispatch(setNotifications(notifications)); // Guardar notificaciones en Redux
         navigateToScreen("LoggedMenu");
       } else if (userData.userType === "MAESTRO") {
         navigateToScreen("TeachersMenu");

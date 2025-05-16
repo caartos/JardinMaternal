@@ -51,7 +51,7 @@ const buttonStyles = StyleSheet.create({
     paddingVertical: 20,
   },
   chatButtonStyle: {
-    width: "45%",
+    width: 160,
     height: 60,
     borderRadius: 10,
     backgroundColor: "#e8aca0",
@@ -59,7 +59,7 @@ const buttonStyles = StyleSheet.create({
     justifyContent: "center",
   },
   photosAndVideosButtonStyle: {
-    width: "45%",
+    width: 175,
     height: 60,
     borderRadius: 10,
     backgroundColor: "#d1e7dd",

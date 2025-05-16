@@ -1,8 +1,16 @@
 import { Alert } from "react-native";
 import { createCircular } from "../config/db/circular/createCircular";
+import { sendNotificationsToParents } from "../config/db/room/room";
+
 
 const useCreateCircular = () => {
-  const createCircularHandler = async (circular, loggedUser, aula, idAula, setCircular) => {
+  const createCircularHandler = async (
+    circular,
+    loggedUser,
+    aula,
+    idAula,
+    setCircular
+  ) => {
     if (!circular.titulo || !circular.circular) {
       Alert.alert("Error", "Por favor, complete ambos campos.");
       return;
@@ -23,6 +31,9 @@ const useCreateCircular = () => {
         destinatario: destinatario,
         idDestinatario: idDestinatario,
       });
+
+      // Crear una notificación para el padre
+      await sendNotificationsToParents(idAula, "circular", "Nueva circular");
 
       Alert.alert("Éxito", "Circular creada exitosamente.");
       setCircular({ titulo: "", circular: "" }); // Limpiar los campos después de crear la circular

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import { getChildObservations, saveChildObservations } from "../config/db/child/child";
+import useNavigate from "../utils/navigation";
 
 const useChildObservations = (childId, initialObservations = {}) => {
+  const navigateToScreen = useNavigate()
   const [observaciones, setObservaciones] = useState({
     siesta: initialObservations.siesta || "",
     baño: initialObservations.baño || "",
@@ -40,6 +42,7 @@ const useChildObservations = (childId, initialObservations = {}) => {
 
       await saveChildObservations(childId, observaciones);
       Alert.alert("Éxito", "Observaciones guardadas exitosamente.");
+      navigateToScreen("SelectedRoom");
     } catch (error) {
       console.error("Error al guardar las observaciones:", error);
       Alert.alert("Error", "Hubo un problema al guardar las observaciones.");

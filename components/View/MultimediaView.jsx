@@ -17,7 +17,6 @@ const MultimediaView = ({ multimedia }) => {
   const [selectedMediaUri, setSelectedMediaUri] = useState(null);
 
   const isVideo = (media) => {
-    console.log("video", media);
     return media.type.startsWith("video/");
   };
 
@@ -31,14 +30,22 @@ const MultimediaView = ({ multimedia }) => {
     setIsModalVisible(true);
   };
 
+  const sortedMultimedia = multimedia
+  ? [...multimedia].sort((a, b) => {
+      const timestampA = a.timestamp?.seconds || 0; // Si no existe, usar 0 como valor predeterminado
+      const timestampB = b.timestamp?.seconds || 0;
+      return timestampB - timestampA; // Ordenar de más nuevo a más viejo
+    })
+  : [];
+
   return (
     <>
       <Text style={titlesStyles.childList}>Multimedia:</Text>
       <ScrollView
         contentContainerStyle={modalSelectorStyles.multimediaScrollView}
       >
-        {multimedia && multimedia.length > 0 ? (
-          multimedia.map((item, index) => (
+        {sortedMultimedia && sortedMultimedia.length > 0 ? (
+          sortedMultimedia.map((item, index) => (
             <TouchableOpacity
               key={index}
               onPress={() => handleMediaPress(item)}

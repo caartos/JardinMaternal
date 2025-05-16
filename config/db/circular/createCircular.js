@@ -9,6 +9,7 @@ import {
   deleteDoc,
   updateDoc,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
@@ -40,27 +41,37 @@ const fetchCirculars = async () => {
   }
 };
 
-const fetchCircularsByRoomOrAll = async (childRoomId) => {
+const fetchCircularsByRoomOrAll = (childRoomId, onCircularsUpdate, onError) => {
   try {
     const q = query(
       collection(db, "circulares"),
       where("idDestinatario", "in", ["Todos", childRoomId]), // Filtra por "Todos" o el childRoomId
       orderBy("timestamp", "desc") // Ordena por timestamp
     );
-    const querySnapshot = await getDocs(q);
-    const circularsList = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return circularsList;
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const circularsList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        onCircularsUpdate(circularsList); // Llama al callback con los datos actualizados
+      },
+      (error) => {
+        console.error("Error al escuchar cambios en las circulares:", error);
+        if (onError) onError(error); // Llama al callback de error si existe
+      }
+    );
+
+    return unsubscribe; // Devuelve la función para cancelar la suscripción
   } catch (error) {
-    console.error("Error al obtener las circulares:", error);
+    console.error("Error al configurar la escucha de circulares:", error);
     throw error;
   }
 };
 
 const fetchCircularsByTitle = async (title) => {
-  console.log(title)
   try {
     const q = query(
       collection(db, "circulares"),

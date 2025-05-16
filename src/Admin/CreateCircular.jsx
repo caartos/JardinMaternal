@@ -15,7 +15,6 @@ const CreateCircular = ({route}) => {
   const backButtonDestiny = route.params
   const loggedUser = useSelector((state) => state.user.user);
   const selectedRoom = useSelector((state) => state.room.selectedRoom);
-  console.log("selectedRoom", selectedRoom)
   const room = loggedUser.rooms ? selectedRoom.title : null;
   const idRoom = loggedUser.rooms ? selectedRoom.id : null;
   const navigateToScreen = useNavigate()

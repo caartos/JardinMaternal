@@ -6,7 +6,9 @@ const useClearSelectedRoom = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearSelectedRoom());
+    return () => {
+      dispatch(clearSelectedRoom());
+    };
   }, [dispatch]);
 };
 

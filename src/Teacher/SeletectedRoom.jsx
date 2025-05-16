@@ -36,8 +36,8 @@ const SelectedRoom = () => {
     navigateToScreen("CreateCircular", (backButtonDestiny = "SelectedRoom"));
   };
 
-  const handleChatWithChild = (chatWith, parentId) => {
-    navigateToScreen("TeacherChatScreen", { chatWith, parentId, room });
+  const handleChatWithChild = (chatWith, parentId, childId) => {
+    navigateToScreen("TeacherChatScreen", { chatWith, parentId, room, childId });
   };
 
   const handlePhotosAndVideos = () => {
@@ -102,7 +102,7 @@ const SelectedRoom = () => {
                     title={"Chat"}
                     titleStyle={buttonStyles.chatRoomButtonText}
                     onPress={() =>
-                      handleChatWithChild(child.nombre, child.parentId)
+                      handleChatWithChild(child.nombre, child.parentId, child.id)
                     }
                   />
                 </View>

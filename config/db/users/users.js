@@ -126,8 +126,6 @@ const fetchTeachersByRoomId = async (roomId) => {
 };
 
 const deleteTeacher = async (teacherId) => {
-  console.log("MAESTRA ID en userjs", teacherId);
-
   try {
     // Llama a la Cloud Function para eliminar al usuario de Authentication
     const deleteUserAccount = httpsCallable(functions, "deleteUserAccount");
@@ -164,5 +162,33 @@ const removeRoomFromTeacher = async (teacherId, roomId) => {
   }
 };
 
+const fetchUserNotifications = async (parentId) => {
+  try {
+    const notificationsRef = collection(db, "notifications");
+    const q = query(
+      notificationsRef,
+      where("receptor", "==", parentId),
+      where("isRead", "==", false)
+    );
+    const snapshot = await getDocs(q);
 
-export { fetchTeachers, assignRoomToTeacher, fetchTeachersByRoomId, deleteTeacher, removeRoomFromTeacher };
+    const notifications = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return notifications;
+  } catch (error) {
+    console.error("Error fetching notifications:", error);
+    return [];
+  }
+};
+
+export {
+  fetchTeachers,
+  assignRoomToTeacher,
+  fetchTeachersByRoomId,
+  deleteTeacher,
+  removeRoomFromTeacher,
+  fetchUserNotifications,
+};

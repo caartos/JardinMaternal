@@ -12,28 +12,38 @@ import useAdminChat from "../../hooks/useAdminChat";
 import TeacherChatHeader from "../../components/Headers/TeacherChatHeader";
 
 const TeacherChatScreen = ({ route }) => {
-  const { chatWith, parentId, room } = route.params;
+  const { chatWith, parentId, room, childId } = route.params;
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
   const sendBy = `${room.title}_`;
   const roomId = room.id; // ID de la sala
-  const { messages, sendMessage } = useAdminChat(roomId, parentId, sendBy); // Reutiliza el hook `useChat`
+  const { messages, sendMessage } = useAdminChat(
+    roomId,
+    parentId,
+    sendBy,
+    childId,
+    "teacherChat"
+  ); // Reutiliza el hook `useChat`
   const handleSend = () => {
     sendMessage(newMessage);
     //sendMessage(newMessage, admin);
     setNewMessage("");
   };
-  
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
         <View style={chatStyles.chatMainViewTag}>
-          <TeacherChatHeader chatWith={chatWith} room={room}/>
-          <MessageList messages={messages} user={room} flatListRef={flatListRef} />
+          <TeacherChatHeader chatWith={chatWith} room={room} />
+          <MessageList
+            messages={messages}
+            userId={room.id}
+            flatListRef={flatListRef}
+          />
           <MessageInput
             newMessage={newMessage}
             setNewMessage={setNewMessage}

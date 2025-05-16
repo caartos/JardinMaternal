@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, SafeAreaView, Text, Alert } from "react-native";
+import { ScrollView, SafeAreaView, Text } from "react-native";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 import buttonStyles from "../../styles/button/buttonStyles";
 import inputStyles from "../../styles/input/inputStyles";
@@ -7,13 +7,11 @@ import Input from "../../components/Input/Input";
 import titlesStyles from "../../styles/commons/titlesStyles";
 import registerStyles from "../../styles/src/registerStyles";
 import Button from "../../components/Buttons/Button";
-import useNavigate from "../../utils/navigation";
 import useChildObservations from "../../hooks/useChildObservations";
-
 
 const ChildDaily = ({ route }) => {
   const child = route.params.user;
-  const navigateToScreen = useNavigate()
+  
   const { observaciones, handleInputChange, saveObservations } = useChildObservations(
     child.id,
     child.observaciones
@@ -21,7 +19,6 @@ const ChildDaily = ({ route }) => {
 
   const handleSaveObservations = async () => {
     await saveObservations();
-    navigateToScreen("SelectedRoom");
   };
 
   return (

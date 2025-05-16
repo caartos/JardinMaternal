@@ -29,8 +29,6 @@ exports.deleteUserAccount = onCall(async (request) => {
   const { userId } = request.data;
 
   try {
-    console.log("Datos recibidos en la función:", request.data);
-
     // Verifica que el userId no sea nulo o indefinido
     if (!userId) {
       throw new Error("El userId es requerido para eliminar un usuario.");

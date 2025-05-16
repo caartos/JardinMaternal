@@ -147,7 +147,6 @@ const saveChildObservations = async (childId, observaciones) => {
   try {
     // Asegúrate de que `expirationTime` sea un objeto Date
     const now = Timestamp.fromDate(new Date());
-    console.log("Fecha y hora actual:", now);
     const childRef = doc(db, "childs", childId); // Referencia al documento del niño
     await setDoc(
       childRef,

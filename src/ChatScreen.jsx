@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   SafeAreaView,
@@ -11,13 +11,23 @@ import chatStyles from "../styles/src/chatStyles";
 import useChat from "../hooks/useChat";
 import MessageList from "../components/Chat/MessageList";
 import MessageInput from "../components/Chat/MessageInput";
+import useMarkNotificationsAsRead from "../hooks/useMarkNotificationsAsRead";
 
 const ChatScreen = ({ route }) => {
-  const { chatWith, childName } = route.params; // "seño" o "directora"
+  const { chatWith, childName, childId, notificationType, room } = route.params; // "seño" o "directora"
   const user = useSelector((state) => state.user.user);
+
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
-  const { messages, sendMessage } = useChat(user, chatWith);
+  const { messages, sendMessage } = useChat(
+    user,
+    chatWith,
+    childId,
+    notificationType,
+    room
+  );
+
+  useMarkNotificationsAsRead(user?.userType, childId, notificationType, user.uid);
 
   const handleSend = () => {
     sendMessage(newMessage);
@@ -32,8 +42,15 @@ const ChatScreen = ({ route }) => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
         <View style={chatStyles.chatMainViewTag}>
-          <ChatHeader chatWith={`Seño de la salita ${chatWith}`} childName={childName} />
-          <MessageList messages={messages} user={user} flatListRef={flatListRef} />
+          <ChatHeader
+            chatWith={`Seño de la salita ${chatWith}`}
+            childName={childName}
+          />
+          <MessageList
+            messages={messages}
+            userId={user.uid}
+            flatListRef={flatListRef}
+          />
           <MessageInput
             newMessage={newMessage}
             setNewMessage={setNewMessage}

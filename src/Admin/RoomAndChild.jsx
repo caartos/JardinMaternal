@@ -9,6 +9,7 @@ import useClearSelectedRoom from "../../hooks/useClearSelectedRoom";
 
 const RoomAndChild = () => {
   const { roomsList } = useGetRooms();
+  console.log("roomsList", roomsList);
   useClearSelectedRoom();
 
   return (

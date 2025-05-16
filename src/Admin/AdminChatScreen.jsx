@@ -13,13 +13,13 @@ import useAdminChat from "../../hooks/useAdminChat";
 import AdminChatHeader from "../../components/Headers/AdminChatHeader";
 
 const AdminChatScreen = ({ route }) => {
-  const { chatWith, parentId } = route.params;
+  const { chatWith, parentId, childId } = route.params;
   const admin = useSelector((state) => state.user.user); // La directora como usuario actual
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
   const adminId = admin.uid; // ID del admin (directora)
   const sendBy = "directora_";
-  const { messages, sendMessage } = useAdminChat(adminId, parentId, sendBy); // Reutiliza el hook `useChat`
+  const { messages, sendMessage } = useAdminChat(adminId, parentId, sendBy, childId, "directorChat"); // Reutiliza el hook `useChat`
   const handleSend = () => {
     sendMessage(newMessage);
     //sendMessage(newMessage, admin);
@@ -35,7 +35,7 @@ const AdminChatScreen = ({ route }) => {
       >
         <View style={chatStyles.chatMainViewTag}>
           <AdminChatHeader chatWith={chatWith} />
-          <MessageList messages={messages} user={admin} flatListRef={flatListRef} />
+          <MessageList messages={messages} userId={adminId} flatListRef={flatListRef} />
           <MessageInput
             newMessage={newMessage}
             setNewMessage={setNewMessage}

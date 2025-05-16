@@ -29,8 +29,8 @@ const Room = () => {
     await removeTeacher(teacherId, room.id);
   };
 
-  const handleChatWithChild = (chatWith, parentId) => {
-    navigateToScreen("AdminChatScreen", { chatWith, parentId });
+  const handleChatWithChild = (chatWith, parentId, childId) => {
+    navigateToScreen("AdminChatScreen", { chatWith, parentId, childId });
   };
 
   const handleRemoveChild = async (childId) => {
@@ -113,7 +113,7 @@ const Room = () => {
                     title={"Chat"}
                     titleStyle={buttonStyles.chatRoomButtonText}
                     onPress={() =>
-                      handleChatWithChild(child.nombre, child.parentId)
+                      handleChatWithChild(child.nombre, child.parentId, child.id)
                     }
                   />
                   <Button

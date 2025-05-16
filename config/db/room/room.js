@@ -9,6 +9,7 @@ import {
   setDoc,
   updateDoc,
   arrayUnion,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -95,7 +96,17 @@ const uploadMediaToFirestorage = async (mediaUris, room) => {
     await uploadBytes(storageRef, blob, metadata);
 
     const downloadUrl = await getDownloadURL(storageRef);
-    uploadedUrls.push({ url: downloadUrl, type: blob.type }); // Guardar la URL y el tipo MIME
+
+    const timestamp = new Date();
+
+    uploadedUrls.push({
+      url: downloadUrl,
+      type: blob.type,
+      timestamp:  {
+        seconds: Math.floor(timestamp.getTime() / 1000), // Convertir a segundos
+        nanoseconds: (timestamp.getTime() % 1000) * 1e6, // Convertir milisegundos a nanosegundos
+      },
+    }); // Guardar la URL y el tipo MIME
   }
 
   const roomRef = doc(db, "rooms", room.id);
@@ -108,8 +119,40 @@ const uploadMediaToFirestorage = async (mediaUris, room) => {
       multimedia: arrayUnion(...uploadedUrls),
     });
   }
-
+  await sendNotificationsToParents(room.id, "multimedia", "Nueva foto o video");
   return uploadedUrls;
+};
+
+const sendNotificationsToParents = async (roomId, notificationType, message) => {
+  try {
+    // Obtener todos los niños que pertenecen al aula
+    const childrenRef = collection(db, "childs");
+    const q = query(childrenRef, where("roomId", "==", roomId));
+    const childrenSnapshot = await getDocs(q);
+
+    const notificationsRef = collection(db, "notifications");
+
+    // Crear una notificación para cada padre y asociarla al hijo
+    for (const childDoc of childrenSnapshot.docs) {
+      const childData = childDoc.data();
+      const parentId = childData.parentId;
+      const childId = childDoc.id; // Usamos el ID del documento como childId
+
+      await addDoc(notificationsRef, {
+        receptor: parentId,
+        childId, // Asociamos la notificación al hijo
+        roomId,
+        message: message,
+        type: notificationType,
+        timestamp: serverTimestamp(),
+        isRead: false,
+      });
+    }
+
+    console.log("Notificaciones enviadas a los padres del aula:", roomId);
+  } catch (error) {
+    console.error("Error al enviar notificaciones a los padres:", error);
+  }
 };
 
 export {
@@ -118,4 +161,5 @@ export {
   fetchTeachersRoom,
   fetchRoomById,
   uploadMediaToFirestorage,
+  sendNotificationsToParents
 };
