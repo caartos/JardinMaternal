@@ -7,7 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 const useMarkNotificationsAsRead = (userType, childId, notificationType, parentId) => {
   const isFocused = useIsFocused();
   useEffect(() => {
-    if (userType === "PADRE" && isFocused) {
+    if ( isFocused) {
       const notificationsRef = collection(db, "notifications");
       const q = query(
         notificationsRef,

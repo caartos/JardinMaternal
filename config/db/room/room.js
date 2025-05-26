@@ -10,6 +10,7 @@ import {
   updateDoc,
   arrayUnion,
   serverTimestamp,
+  arrayRemove,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -155,11 +156,35 @@ const sendNotificationsToParents = async (roomId, notificationType, message) => 
   }
 };
 
+const addChildToRoom = async (roomId, childId) => {
+  const roomRef = doc(db, "rooms", roomId);
+  await updateDoc(roomRef, {
+    childrenIds: arrayUnion(childId),
+  });
+};
+
+const removeChildFromRoomArray = async (roomId, childId) => {
+  const roomRef = doc(db, "rooms", roomId);
+  await updateDoc(roomRef, {
+    childrenIds: arrayRemove(childId),
+  });
+};
+
+const removeAllChildrenFromRoomArray = async (roomId) => {
+  const roomRef = doc(db, "rooms", roomId);
+  await updateDoc(roomRef, {
+    childrenIds: [],
+  });
+};
+
 export {
   createRoomInDB,
   fetchAvailableRooms,
   fetchTeachersRoom,
   fetchRoomById,
   uploadMediaToFirestorage,
-  sendNotificationsToParents
+  sendNotificationsToParents,
+  addChildToRoom,
+  removeChildFromRoomArray,
+  removeAllChildrenFromRoomArray,
 };

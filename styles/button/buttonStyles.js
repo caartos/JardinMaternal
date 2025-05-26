@@ -89,7 +89,7 @@ const buttonStyles = StyleSheet.create({
     color: "#e8aca0",
   },
   adminMenuButtonStyle: {
-    width: "50%",
+    width: 195,
     height: 80,
     borderRadius: 10,
     backgroundColor: "#d1e7dd",
@@ -102,7 +102,7 @@ const buttonStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   createCircularButtonStyle: {
-    width: "45%",
+    width: 175,
     height: 60,
     borderRadius: 10,
     backgroundColor: "#e8aca0",

@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { Alert } from "react-native";
 import { assignRoomToChild, fetchChildrenWithoutRoom } from "../config/db/child/child";
 import { setChildren } from "../actions/childActions";
+import { addChildToRoom } from "../config/db/room/room";
 
 const useAssignRoomToChild = (setChildrenList) => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const useAssignRoomToChild = (setChildrenList) => {
       // Asignar la sala al niño
       await assignRoomToChild(childId, roomId);
 
+      await addChildToRoom(roomId, childId);
       // Actualizar la lista de niños sin sala
       const updatedChildren = await fetchChildrenWithoutRoom();
       setChildrenList(updatedChildren);

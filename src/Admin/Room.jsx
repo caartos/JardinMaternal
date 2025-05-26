@@ -22,7 +22,7 @@ const Room = () => {
   const { teachersList, setTeachersList } = useGetTeachersByRoomId(room.id);
 
   const { removeTeacher } = useRemoveTeacher(teachersList, setTeachersList);
-  const { removeChild } = useRemoveChildFromRoom(childrenList, setChildrenList);
+  const { removeChild } = useRemoveChildFromRoom(childrenList, setChildrenList, room.id);
   const { removeAllChildren } = useRemoveAllChildrenFromRoom(setChildrenList);
 
   const handleRemoveTeacher = async (teacherId) => {

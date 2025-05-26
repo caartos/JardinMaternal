@@ -14,11 +14,15 @@ import Button from "../../components/Buttons/Button";
 import useNavigate from "../../utils/navigation";
 import useGetChildrenByRoomId from "../../hooks/useGetChildrenByRoomId";
 import { useSelector } from "react-redux";
+import useNotifications from "../../hooks/useNotifications";
+import notificationStyles from "../../styles/notification/notification";
 
-const SelectedRoom = () => {
+const SelectedRoom = ({ route }) => {
+  const { userId } = route.params;
   const navigateToScreen = useNavigate();
   const room = useSelector((state) => state.room.selectedRoom);
   const { childrenList } = useGetChildrenByRoomId(room?.id || "");
+  const notifications = useNotifications(userId);
 
   if (!room) {
     return (
@@ -32,19 +36,25 @@ const SelectedRoom = () => {
     );
   }
 
+  const unreadCount =(childId) =>
+    notifications.filter((n) => n.childId === childId && !n.isRead).length;
+
   const navigateToCreateCircular = () => {
     navigateToScreen("CreateCircular", (backButtonDestiny = "SelectedRoom"));
   };
 
   const handleChatWithChild = (chatWith, parentId, childId) => {
-    navigateToScreen("TeacherChatScreen", { chatWith, parentId, room, childId });
+    navigateToScreen("TeacherChatScreen", {
+      chatWith,
+      parentId,
+      room,
+      childId,
+    });
   };
 
   const handlePhotosAndVideos = () => {
     navigateToScreen("PhotosAndVideos", { backButtonDestiny: "SelectedRoom" });
   };
-
-
 
   return (
     <SafeAreaView style={{ flex: 1, marginTop: 40 }}>
@@ -102,9 +112,20 @@ const SelectedRoom = () => {
                     title={"Chat"}
                     titleStyle={buttonStyles.chatRoomButtonText}
                     onPress={() =>
-                      handleChatWithChild(child.nombre, child.parentId, child.id)
+                      handleChatWithChild(
+                        child.nombre,
+                        child.parentId,
+                        child.id
+                      )
                     }
                   />
+                  {unreadCount(child.id) > 0 && (
+                      <View style={notificationStyles.teacherNotificationBadge}>
+                        <Text style={notificationStyles.notificationText}>
+                          {unreadCount(child.id)}
+                        </Text>
+                      </View>
+                    )}
                 </View>
               </View>
             ))}

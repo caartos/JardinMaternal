@@ -10,11 +10,14 @@ import MessageList from "../../components/Chat/MessageList";
 import MessageInput from "../../components/Chat/MessageInput";
 import useAdminChat from "../../hooks/useAdminChat";
 import TeacherChatHeader from "../../components/Headers/TeacherChatHeader";
+import { useSelector } from "react-redux";
+import useMarkNotificationsAsRead from "../../hooks/useMarkNotificationsAsRead";
 
 const TeacherChatScreen = ({ route }) => {
   const { chatWith, parentId, room, childId } = route.params;
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
+  const user = useSelector((state) => state.user.user);
   const sendBy = `${room.title}_`;
   const roomId = room.id; // ID de la sala
   const { messages, sendMessage } = useAdminChat(
@@ -29,6 +32,8 @@ const TeacherChatScreen = ({ route }) => {
     //sendMessage(newMessage, admin);
     setNewMessage("");
   };
+
+  useMarkNotificationsAsRead(user?.userType, childId, "teacherChat", user.uid);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

@@ -17,7 +17,11 @@ const Rooms = () => {
     <SafeAreaView style={{ flex: 1, marginTop: 40 }}>
       <ScrollView style={registerStyles.registerMainViewTag}>
         <LoggedOutHeader title={"Salas"} backButtonDestiny={"TeachersMenu"} />
-        <RoomsView roomsList={roomsList} roomDestiny={"SelectedRoom"}/>
+        <RoomsView
+          roomsList={roomsList}
+          roomDestiny={"SelectedRoom"}
+          userId={user.uid}
+        />
       </ScrollView>
     </SafeAreaView>
   );

@@ -2,8 +2,9 @@ import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { removeChildFromRoom } from "../config/db/child/child";
 import { setChildren } from "../actions/childActions";
+import { removeChildFromRoomArray } from "../config/db/room/room";
 
-const useRemoveChildFromRoom = (childrenList, setChildrenList) => {
+const useRemoveChildFromRoom = (childrenList, setChildrenList, roomId) => {
   const dispatch = useDispatch();
 
   const removeChild = async (childId) => {
@@ -22,7 +23,7 @@ const useRemoveChildFromRoom = (childrenList, setChildrenList) => {
             try {
               // Llama a la función para eliminar al niño de la sala en la base de datos
               await removeChildFromRoom(childId);
-
+              await removeChildFromRoomArray(roomId, childId);
               // Filtra la lista de niños localmente
               const updatedChildrenList = childrenList.filter(
                 (child) => child.id !== childId
