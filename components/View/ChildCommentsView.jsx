@@ -1,7 +1,34 @@
-import React from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
+import { db } from "../../config/firebaseConfig";
+import { markNotificationsAsRead } from "../../config/db/notifications/notifications";
 
-const ChildCommentsView = ({ childComments={} }) => {
+const ChildCommentsView = ({ childId, userId, userType }) => {
+
+  const [childObservations, setChildObservations] = useState({});
+
+  useEffect(() => {
+    const childDocRef = doc(db, "childs", childId); // Asegúrate de que la colección sea correcta
+    const unsubscribe = onSnapshot(
+      childDocRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          setChildObservations(snapshot.data().observaciones || {});
+
+          markNotificationsAsRead(userType, childId, "observaciones", userId);
+        } else {
+          console.warn("No se encontraron observaciones para este niño.");
+        }
+      },
+      (error) => {
+        console.error("Error al escuchar las observaciones:", error);
+      }
+    );
+
+    return () => unsubscribe(); // Limpia el listener al desmontar
+  }, [childId, userId]);
+
   return (
     <View
       style={{
@@ -17,16 +44,16 @@ const ChildCommentsView = ({ childComments={} }) => {
         Comentarios:
       </Text>
       <Text style={{ paddingLeft: 10, padding: 5, fontSize: 15 }}>
-        Siesta: {childComments.siesta || ""}
+        Siesta: {childObservations.siesta || ""}
       </Text>
       <Text style={{ paddingLeft: 10, padding: 5, fontSize: 15 }}>
-      Baño: {childComments.baño ? `${childComments.baño} 💩` : ""}
+      Baño: {childObservations.baño ? `${childObservations.baño} 💩` : ""}
       </Text>
       <Text style={{ paddingLeft: 10, padding: 5, fontSize: 15 }}>
-        Merienda: {childComments.merienda || ""}
+        Merienda: {childObservations.merienda || ""}
       </Text>
       <Text style={{ paddingLeft: 10, padding: 5, fontSize: 15 }}>
-        Comentarios: {childComments.comentarios || ""}
+        Comentarios: {childObservations.comentarios || ""}
       </Text>
     </View>
   );

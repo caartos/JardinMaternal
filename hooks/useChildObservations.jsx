@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import { getChildObservations, saveChildObservations } from "../config/db/child/child";
 import useNavigate from "../utils/navigation";
+import { sendNotificationsToParents } from "../config/db/room/room";
 
 const useChildObservations = (childId, initialObservations = {}) => {
   const navigateToScreen = useNavigate()
@@ -28,7 +29,7 @@ const useChildObservations = (childId, initialObservations = {}) => {
   }, [childId]);
 
   // Guardar observaciones
-  const saveObservations = async () => {
+  const saveObservations = async (idAula) => {
     try {
       if (
         !observaciones.siesta ||
@@ -41,6 +42,7 @@ const useChildObservations = (childId, initialObservations = {}) => {
       }
 
       await saveChildObservations(childId, observaciones);
+      await sendNotificationsToParents(idAula, "observaciones", "Observaciones del día");
       Alert.alert("Éxito", "Observaciones guardadas exitosamente.");
       navigateToScreen("SelectedRoom");
     } catch (error) {

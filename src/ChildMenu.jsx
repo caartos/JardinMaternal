@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import ChildHeader from "../components/Headers/ChildHeader";
 import ChatButtonsView from "../components/View/ChatButtonsView";
@@ -12,6 +12,8 @@ import buttonStyles from "../styles/button/buttonStyles";
 import useNavigate from "../utils/navigation";
 import { setSelectedRoom } from "../reducers/roomReducer";
 import useNotifications from "../hooks/useNotifications";
+import { getChildObservations } from "../config/db/child/child";
+
 
 const ChildMenu = () => {
   const child = useSelector((state) => state.child.selectedChild);
@@ -28,7 +30,6 @@ const ChildMenu = () => {
       !notification.isRead
   );
 
-
   const unreadCircularCount = circularNotifications.length;
   // Filtrar notificaciones por tipo
   const multimediaNotifications = notifications.filter(
@@ -37,7 +38,6 @@ const ChildMenu = () => {
       notification.type === "multimedia" &&
       !notification.isRead
   );
-
 
   const navigateToPhotosAndVideos = async () => {
     dispatch(setSelectedRoom(room));
@@ -71,7 +71,7 @@ const ChildMenu = () => {
             </View>
           )}
         </View>
-        <ChildCommentsView childComments={child.observaciones} />
+        <ChildCommentsView childId={child.id} userId={user.uid} userType={user.userType} />
         <CircularsView
           childRoomId={child.roomId}
           childId={child.id}

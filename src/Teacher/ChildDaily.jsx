@@ -8,17 +8,22 @@ import titlesStyles from "../../styles/commons/titlesStyles";
 import registerStyles from "../../styles/src/registerStyles";
 import Button from "../../components/Buttons/Button";
 import useChildObservations from "../../hooks/useChildObservations";
+import { useSelector } from "react-redux";
 
 const ChildDaily = ({ route }) => {
   const child = route.params.user;
-  
+  const loggedUser = useSelector((state) => state.user.user);
+  const selectedRoom = useSelector((state) => state.room.selectedRoom);
+  const room = loggedUser.rooms ? selectedRoom.title : null;
+  const idRoom = loggedUser.rooms ? selectedRoom.id : null;
+
   const { observaciones, handleInputChange, saveObservations } = useChildObservations(
     child.id,
     child.observaciones
   );
 
   const handleSaveObservations = async () => {
-    await saveObservations();
+    await saveObservations(idRoom);
   };
 
   return (

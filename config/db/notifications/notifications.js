@@ -10,12 +10,13 @@ const markNotificationsAsRead = async (userType, childId, type, receptor) => {
     where("type", "==", type),
     where("isRead", "==", false)
   );
-
+  console.log("Querying notifications:", q);
   const snapshot = await getDocs(q);
   // Si no hay notificaciones no leídas, salir de la función
   if (snapshot.empty) {
     return;
   }
+  console.log("Documentos encontrados:", snapshot.docs.map((doc) => doc.data()));
 
   const batch = writeBatch(db); // Crear un batch para operaciones en lote
 
