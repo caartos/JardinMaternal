@@ -6,10 +6,12 @@ import RoomsView from "../../components/View/RoomsView";
 import CreateRoomButton from "../../components/Buttons/CreateRoomButton";
 import useGetRooms from "../../hooks/useGetRooms";
 import useClearSelectedRoom from "../../hooks/useClearSelectedRoom";
+import { useSelector } from "react-redux";
 
 const RoomAndChild = () => {
+  const user = useSelector((state) => state.user.user);
   const { roomsList } = useGetRooms();
-  console.log("roomsList", roomsList);
+
   useClearSelectedRoom();
 
   return (
@@ -20,7 +22,7 @@ const RoomAndChild = () => {
           backButtonDestiny={"AdminMenu"}
         />
         <ChildsWithoutRoomView />
-        <RoomsView roomsList={roomsList} roomDestiny={"Room"}/>
+        <RoomsView roomsList={roomsList} roomDestiny={"Room"} userId={user.uid} />
         <CreateRoomButton />
       </ScrollView>
     </SafeAreaView>

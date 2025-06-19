@@ -11,6 +11,7 @@ import MessageList from "../../components/Chat/MessageList";
 import MessageInput from "../../components/Chat/MessageInput";
 import useAdminChat from "../../hooks/useAdminChat";
 import AdminChatHeader from "../../components/Headers/AdminChatHeader";
+import useMarkNotificationsAsRead from "../../hooks/useMarkNotificationsAsRead";
 
 const AdminChatScreen = ({ route }) => {
   const { chatWith, parentId, childId } = route.params;
@@ -25,7 +26,7 @@ const AdminChatScreen = ({ route }) => {
     //sendMessage(newMessage, admin);
     setNewMessage("");
   };
-  
+  useMarkNotificationsAsRead(admin?.userType, childId, "directorChat", admin.uid);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView

@@ -4,7 +4,7 @@ import useNavigate from "../../utils/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { selectChild } from "../../actions/childActions";
 import useNotifications from "../../hooks/useNotifications";
-import notificationStyles from "../../styles/notification/notification";
+import notificationStyles from "../../styles/notification/notificationStyles";
 
 const ChildMenuButton = ({ childId }) => {
   const dispatch = useDispatch();

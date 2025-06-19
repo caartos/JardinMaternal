@@ -9,10 +9,13 @@ import { setSelectedRoom } from "../../reducers/roomReducer";
 import useNotifications from "../../hooks/useNotifications";
 import notificationStyles from "../../styles/notification/notification";
 
+
 const RoomsView = ({ roomsList, roomDestiny, userId }) => {
+
   const navigateToScreen = useNavigate();
   const dispatch = useDispatch();
   const notifications = useNotifications(userId);
+
   const navigateToSelectedRoom = (room) => {
     dispatch(setSelectedRoom(room));
     navigateToScreen(roomDestiny, { userId: userId });

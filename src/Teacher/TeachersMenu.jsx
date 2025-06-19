@@ -15,7 +15,7 @@ const TeachersMenu = () => {
   const unreadCount = notifications.filter(
     (notification) => notification.isRead === false
   ).length;
-  console.log(notifications);
+
   const navigateToScreen = useNavigate();
 
   const navigateToRooms = () => {
@@ -30,7 +30,12 @@ const TeachersMenu = () => {
           backButtonDestiny={"TeachersMenu"}
         />
         <View
-          style={{ position: "relative", alignSelf: "center", paddingTop: 10, marginTop: 10 }}
+          style={{
+            position: "relative",
+            alignSelf: "center",
+            paddingTop: 10,
+            marginTop: 10,
+          }}
         >
           <Button
             buttonRegularStyle={buttonStyles.adminMenuButtonStyle}

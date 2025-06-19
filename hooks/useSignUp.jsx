@@ -95,6 +95,7 @@ const useSignUp = () => {
         mail: mail,
         userType: userType,
         admin: isAdmin,
+        directorId: codeData.directorId,
       });
 
       Alert.alert("Registro exitoso.");

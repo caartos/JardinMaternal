@@ -78,7 +78,7 @@ const useChat = (user, chatWith, childId, notificationType, room) => {
     }
   } else if (notificationType === "directorChat") {
     
-    const directora = "directora"; // TRABAJAR PARA QUE ACA LLEGUE EL ID DE LA DIRECTORA
+    const directora = user.directorId; // TRABAJAR PARA QUE ACA LLEGUE EL ID DE LA DIRECTORA
     await addDoc(collection(db, "notifications"), {
       childId,
       receptor: directora,

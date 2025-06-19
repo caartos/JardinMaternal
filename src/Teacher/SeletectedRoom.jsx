@@ -15,7 +15,7 @@ import useNavigate from "../../utils/navigation";
 import useGetChildrenByRoomId from "../../hooks/useGetChildrenByRoomId";
 import { useSelector } from "react-redux";
 import useNotifications from "../../hooks/useNotifications";
-import notificationStyles from "../../styles/notification/notification";
+import notificationStyles from "../../styles/notification/notificationStyles";
 
 const SelectedRoom = ({ route }) => {
   const { userId } = route.params;

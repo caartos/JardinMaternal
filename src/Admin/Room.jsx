@@ -12,17 +12,27 @@ import useRemoveTeacher from "../../hooks/useRemoveTeacher";
 import useRemoveChildFromRoom from "../../hooks/useRemoveChildFromRoom";
 import useRemoveAllChildrenFromRoom from "../../hooks/useRemoveAllChildren";
 import { useSelector } from "react-redux";
+import useNotifications from "../../hooks/useNotifications";
+import notificationStyles from "../../styles/notification/notification";
 
-const Room = () => {
+const Room = ({ route }) => {
+  const { userId } = route.params;
+
   const navigateToScreen = useNavigate();
-
+  const notifications = useNotifications(userId);
   const room = useSelector((state) => state.room.selectedRoom);
-  
+  const unreadCount = (childId) =>
+    notifications.filter((n) => n.childId === childId && !n.isRead).length;
+
   const { childrenList, setChildrenList } = useGetChildrenByRoomId(room.id);
   const { teachersList, setTeachersList } = useGetTeachersByRoomId(room.id);
 
   const { removeTeacher } = useRemoveTeacher(teachersList, setTeachersList);
-  const { removeChild } = useRemoveChildFromRoom(childrenList, setChildrenList, room.id);
+  const { removeChild } = useRemoveChildFromRoom(
+    childrenList,
+    setChildrenList,
+    room.id
+  );
   const { removeAllChildren } = useRemoveAllChildrenFromRoom(setChildrenList);
 
   const handleRemoveTeacher = async (teacherId) => {
@@ -34,7 +44,7 @@ const Room = () => {
   };
 
   const handleRemoveChild = async (childId) => {
-    await removeChild(childId)
+    await removeChild(childId);
   };
 
   const handleRemoveAllChildren = async () => {
@@ -51,9 +61,7 @@ const Room = () => {
         <Text style={titlesStyles.createCircularTitle}>
           Salita de {room.age}
         </Text>
-        <Text style={titlesStyles.teachersList}>
-          Maestras:
-        </Text>
+        <Text style={titlesStyles.teachersList}>Maestras:</Text>
         {teachersList.length > 0 ? (
           teachersList.map((teacher) => (
             <View
@@ -82,9 +90,7 @@ const Room = () => {
             No hay maestras asignadas a esta sala
           </Text>
         )}
-        <Text style={titlesStyles.childList}>
-          Alumnos:
-        </Text>
+        <Text style={titlesStyles.childList}>Alumnos:</Text>
         {childrenList.length > 0 ? (
           <View>
             {childrenList.map((child) => (
@@ -108,14 +114,27 @@ const Room = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Button
-                    buttonRegularStyle={buttonStyles.chatRoomButton}
-                    title={"Chat"}
-                    titleStyle={buttonStyles.chatRoomButtonText}
-                    onPress={() =>
-                      handleChatWithChild(child.nombre, child.parentId, child.id)
-                    }
-                  />
+                  <View>
+                    <Button
+                      buttonRegularStyle={buttonStyles.chatRoomButton}
+                      title={"Chat"}
+                      titleStyle={buttonStyles.chatRoomButtonText}
+                      onPress={() =>
+                        handleChatWithChild(
+                          child.nombre,
+                          child.parentId,
+                          child.id
+                        )
+                      }
+                    />
+                    {unreadCount(child.id) > 0 && (
+                      <View style={notificationStyles.teacherNotificationBadge}>
+                        <Text style={notificationStyles.notificationText}>
+                          {unreadCount(child.id)}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                   <Button
                     buttonRegularStyle={buttonStyles.removeChildButton}
                     title="Sacar"

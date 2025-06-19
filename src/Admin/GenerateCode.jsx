@@ -6,24 +6,27 @@ import buttonStyles from "../../styles/button/buttonStyles";
 import { createCode } from "../../config/db/generateCode/generateCode";
 import LoggedOutHeader from "../../components/Headers/LoggedOutHeader";
 
-const GenerateCode = () => {
-
+const GenerateCode = ({ route }) => {
+  const { userId } = route.params;
   const generateParentCode = async () => {
-    const newCode = await createCode("alumno-")
+    const newCode = await createCode("alumno-", userId);
     Alert.alert("Codigo:", newCode);
     console.log("Codigo para padre generado", newCode);
   };
 
   const generateTeacherCode = async () => {
-    const newCode = await createCode("maestro-")
+    const newCode = await createCode("maestro-", userId);
     Alert.alert("Codigo:", newCode);
     console.log("Codigo para padre generado", newCode);
-  }
+  };
 
   return (
     <SafeAreaView>
       <ScrollView style={registerStyles.registerMainViewTag}>
-        <LoggedOutHeader title={"Generar código"} backButtonDestiny={"AdminMenu"} />
+        <LoggedOutHeader
+          title={"Generar código"}
+          backButtonDestiny={"AdminMenu"}
+        />
         <View style={{ alignItems: "center", paddingTop: 20 }}>
           <Button
             buttonRegularStyle={buttonStyles.createCircularButtonStyle}

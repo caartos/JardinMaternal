@@ -16,7 +16,7 @@ import useMarkNotificationsAsRead from "../hooks/useMarkNotificationsAsRead";
 const ChatScreen = ({ route }) => {
   const { chatWith, childName, childId, notificationType, room } = route.params; // "seño" o "directora"
   const user = useSelector((state) => state.user.user);
-
+  
   const [newMessage, setNewMessage] = useState("");
   const flatListRef = useRef(null);
   const { messages, sendMessage } = useChat(
@@ -24,7 +24,7 @@ const ChatScreen = ({ route }) => {
     chatWith,
     childId,
     notificationType,
-    room
+    room,
   );
 
   useMarkNotificationsAsRead(user?.userType, childId, notificationType, user.uid);

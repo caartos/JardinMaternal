@@ -6,7 +6,7 @@ const generateCode = (codeType) => {
   return `${codeType}${code}`;
 };
 
-const createCode = async (codeType) => {
+const createCode = async (codeType, userId) => {
   const code = generateCode(codeType);
   const expirationTime = Timestamp.fromDate(new Date(Date.now() + 15 * 60 * 1000)); // 15 minutos desde que se crea
 
@@ -14,6 +14,7 @@ const createCode = async (codeType) => {
     code,
     expirationTime,
     used: false,
+    directorId: userId
   });
 
   return code;
