@@ -33,6 +33,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.caartos.JardinMaternal",
+      "permissions": ["INTERNET"],
       "googleServicesFile": "./google-services.json"
     },
     "web": {
